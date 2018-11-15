@@ -1,0 +1,44 @@
+[13-Oct-2016 23:43:26 America/El_Salvador] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/index.php on line 40
+[22-Oct-2016 10:45:35 America/El_Salvador] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/index.php on line 40
+[03-Feb-2017 09:10:18 America/Chicago] PHP Warning:  mysql_connect(): Too many connections in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 3
+[03-Feb-2017 09:10:18 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 4
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Access denied for user 'root'@'localhost' (using password: NO) in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 6
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 6
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Access denied for user 'root'@'localhost' (using password: NO) in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 7
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 7
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Access denied for user 'root'@'localhost' (using password: NO) in /home/guanaquitosoft/public_html/consultorio/principal.php on line 16
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/principal.php on line 16
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/principal.php on line 17
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Access denied for user 'root'@'localhost' (using password: NO) in /home/guanaquitosoft/public_html/consultorio/principal.php on line 23
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/principal.php on line 23
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/principal.php on line 24
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Too many connections in /home/guanaquitosoft/public_html/consultorio/principal.php on line 90
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/principal.php on line 90
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/principal.php on line 91
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Too many connections in /home/guanaquitosoft/public_html/consultorio/principal.php on line 108
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/principal.php on line 108
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/principal.php on line 109
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Too many connections in /home/guanaquitosoft/public_html/consultorio/principal.php on line 126
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/principal.php on line 126
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/principal.php on line 127
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Too many connections in /home/guanaquitosoft/public_html/consultorio/principal.php on line 144
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/principal.php on line 144
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_num_rows() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/principal.php on line 145
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Too many connections in /home/guanaquitosoft/public_html/consultorio/principal.php on line 178
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/principal.php on line 178
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/principal.php on line 180
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): Too many connections in /home/guanaquitosoft/public_html/consultorio/principal.php on line 220
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/principal.php on line 220
+[03-Feb-2017 09:10:18 America/El_Salvador] PHP Warning:  mysql_fetch_array() expects parameter 1 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/principal.php on line 222
+[03-Feb-2017 09:11:17 America/Chicago] PHP Warning:  mysql_connect(): Too many connections in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 3
+[03-Feb-2017 09:11:17 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 4
+[03-Feb-2017 09:11:17 America/El_Salvador] PHP Warning:  mysql_query(): Access denied for user 'root'@'localhost' (using password: NO) in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 6
+[03-Feb-2017 09:11:17 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 6
+[03-Feb-2017 09:11:17 America/El_Salvador] PHP Warning:  mysql_query(): Access denied for user 'root'@'localhost' (using password: NO) in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 7
+[03-Feb-2017 09:11:17 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 7
+[03-Feb-2017 09:30:17 America/Chicago] PHP Warning:  mysql_connect(): Too many connections in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 3
+[03-Feb-2017 09:30:17 America/Chicago] PHP Warning:  mysql_select_db() expects parameter 2 to be resource, boolean given in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 4
+[03-Feb-2017 09:30:17 America/El_Salvador] PHP Warning:  mysql_query(): Access denied for user 'root'@'localhost' (using password: NO) in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 6
+[03-Feb-2017 09:30:17 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 6
+[03-Feb-2017 09:30:17 America/El_Salvador] PHP Warning:  mysql_query(): Access denied for user 'root'@'localhost' (using password: NO) in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 7
+[03-Feb-2017 09:30:17 America/El_Salvador] PHP Warning:  mysql_query(): A link to the server could not be established in /home/guanaquitosoft/public_html/consultorio/modulos/php_conexion.php on line 7

@@ -1,0 +1,8 @@
+delete FROM `ttalleristas` WHERE 1
+delete FROM `talleristas` WHERE 1
+delete FROM `conceptos` WHERE 1
+delete FROM `formulas` WHERE 1
+delete FROM `programas` WHERE 1
+delete FROM `responsabilidad` WHERE 1
+delete FROM `proyectos` WHERE 1
+delete FROM `novedades` WHERE 1
