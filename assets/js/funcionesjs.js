@@ -547,30 +547,6 @@ $("#msgEditConceptoGasto").delay(3000).fadeOut(300);
 return;
 }
 
-// function mostrardetalle(){
-//   var c="Hola";
-//   var parametros = {c};
-//   $.ajax({
-//     url:'../../logica/logica.php?accion=ListarDetalleTMP',
-//     type: 'POST',
-//     data: parametros,
-//     success:function(data){
-//       $("#msgDetalleSolicitudGastoLista").html(data).fadeIn('slow');
-//     }
-//   });
-// }
-
-// function eliminar_item(id_detalle_TMP){
-//   var parametros = {id_detalle_TMP};
-//   $.ajax({
-//     url:'../../logica/logica.php?accion=eliminar_item',
-//     type: 'POST',
-//     data: parametros,
-//     success:function(data){
-//        $("#mgEliminarDetalleTMP").html(data);
-//     }
-//   });
-// }
 
 function insertarDpto(){
   var codDaneDpto= $('#codDANEDpto').val();
@@ -1981,7 +1957,6 @@ return;
 }
 
 
-
 function guardarSolicitudGasto(){
   var IdSolicitudGastoSG=$('#IdSolicitudGastoSG').text();
   var fecha=$('#fecha').text();
@@ -2022,6 +1997,71 @@ function guardarSolicitudGasto(){
   $("#msgSolicitudGasto").delay(3000).fadeOut(300);
   return;
 }
+
+function VerSolicitudGasto(datoPrograma,datoresponsables){
+    deditI=datoPrograma.split('||');
+    $('#VerIdSolicitudGastoSG').html(deditI[0]);
+    $('#VerFechaSolicitudGastoSG').html(deditI[1]);
+
+    $('#VerCodMunicipioSG option[value='+ deditI[5] +']').attr('selected',true);
+    $('#VerCodMunicipioSGdiv').html($("#VerCodMunicipioSG option:selected").text());
+
+    $('#VerCodEntidadSG option[value='+ deditI[6] +']').attr('selected',true);
+    $('#VerCodEntidadSGdiv').html($("#VerCodEntidadSG option:selected").text());
+
+    $('#VerCodProyectoSG option[value='+ deditI[2] +']').attr('selected',true);
+    $('#VerCodProyectoSGdiv').html($("#VerCodProyectoSG option:selected").text());
+
+    $('#VerCodProcesoSG option[value='+ deditI[3] +']').attr('selected',true);
+    $('#VerCodProcesoSGdiv').html($("#VerCodProcesoSG option:selected").text());
+
+    $('#VerCodActividadSG option[value='+ deditI[4] +']').attr('selected',true);
+    $('#VerCodActividadSGdiv').html($("#VerCodActividadSG option:selected").text());
+
+    $('#VerFechaHoraSalidaSGdiv').html(deditI[7]);
+    $('#VerFechaHoraRegresoSGdiv').html(deditI[8]);
+    
+    $('#VerCantColeccionSGdiv').html(deditI[9]);
+    $('#VerTipoColeccionSGdiv').html(deditI[10]);
+
+    var totalSG=formatNumber.new(deditI[12]) ;
+    $('#VerValorTotaldiv').html('$  '+ totalSG);
+    
+    deditR=datoresponsables.split('||');
+    $('#VerresponsableSGdiv').val(deditR);
+    $('#VerresponsableSGdiv').trigger('change');
+    $('#VerresponsableSGdiv').select2({
+      disabled: true
+    });
+    mostrarDetalleSG();
+
+
+}
+
+var formatNumber = {
+  separador: ",", // separador para los miles
+  sepDecimal: '.', // separador para los decimales
+  formatear:function (num){
+  num +='';
+  var splitStr = num.split('.');
+  var splitLeft = splitStr[0];
+  var splitRight = splitStr.length > 1 ? this.sepDecimal + splitStr[1] : '';
+  var regx = /(\d+)(\d{3})/;
+  while (regx.test(splitLeft)) {
+  splitLeft = splitLeft.replace(regx, '$1' + this.separador + '$2');
+  }
+  return this.simbol + splitLeft +splitRight;
+  },
+  new:function(num, simbol){
+  this.simbol = simbol ||'';
+  return this.formatear(num);
+  }
+ }
+
+
+
+
+
 
 function formeditTipoNovMater(datoPrograma){
   deditI=datoPrograma.split('||');

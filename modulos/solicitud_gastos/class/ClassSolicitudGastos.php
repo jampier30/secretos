@@ -7,25 +7,43 @@ Class Proceso_SolicitudGastos{
      }
 
     function ListarSolicitudGastos(){
-        $sql="SELECT conceptodegasto.idConceptodeGasto, conceptodegasto.CodigoConceptoGasto, conceptodegasto.DesConceptodeGasto, conceptodegasto.TarifaSN, tipodegasto.DescTipodeGasto, plandecuentas.DescPlandeCuentas, conceptodegasto.EstadoConceptoGasto,tipodegasto.idTipodeGasto,plandecuentas.idPlandeCuentas FROM conceptodegasto INNER JOIN tipodegasto ON conceptodegasto.TipodeGasto_idTipodeGasto=tipodegasto.idTipodeGasto INNER JOIN plandecuentas ON plandecuentas.idPlandeCuentas=conceptodegasto.PlandeCuentas_idPlandeCuentas";
+        $sql="SELECT 
+        solicitudgastos.*,
+        municipio.NombreMunicipio
+        FROM solicitudgastos 
+        INNER JOIN municipio ON municipio.idMunicipio=solicitudgastos.idMunicipioSolicitudGastos";
+        $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+        return $this->resultado;
+    }
+
+    function ListarSolicitudGastosxEstado($EstadoSG){
+        $sql="SELECT 
+        solicitudgastos.*,
+        municipio.NombreMunicipio
+        FROM solicitudgastos 
+        INNER JOIN municipio ON municipio.idMunicipio=solicitudgastos.idMunicipioSolicitudGastos
+        where EstadoSolicitudGastos=".$EstadoSG;
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
 
     function BuscarSolicitudGastosxid($idSolicitudGastos){
-        $sql="SELECT conceptodegasto.idConceptodeGasto, conceptodegasto.CodigoConceptoGasto, conceptodegasto.DesConceptodeGasto, conceptodegasto.TarifaSN, tipodegasto.DescTipodeGasto, plandecuentas.DescPlandeCuentas, conceptodegasto.EstadoConceptoGasto,tipodegasto.idTipodeGasto,plandecuentas.idPlandeCuentas FROM solicitudgastos INNER JOIN tipodegasto ON conceptodegasto.TipodeGasto_idTipodeGasto=tipodegasto.idTipodeGasto INNER JOIN plandecuentas ON plandecuentas.idPlandeCuentas=conceptodegasto.PlandeCuentas_idPlandeCuentas where idConceptodeGasto=".$idConceptodeGasto;
-        $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
-        return $this->resultado;
-    }
-
-    function BuscarSolicitudGastosxcod($CodigoSolicitudGastos){
-        $sql="SELECT conceptodegasto.idConceptodeGasto, conceptodegasto.CodigoConceptoGasto, conceptodegasto.DesConceptodeGasto, conceptodegasto.TarifaSN, tipodegasto.DescTipodeGasto, plandecuentas.DescPlandeCuentas, conceptodegasto.EstadoConceptoGasto,tipodegasto.idTipodeGasto,plandecuentas.idPlandeCuentas FROM solicitudgastos INNER JOIN tipodegasto ON conceptodegasto.TipodeGasto_idTipodeGasto=tipodegasto.idTipodeGasto INNER JOIN plandecuentas ON plandecuentas.idPlandeCuentas=conceptodegasto.PlandeCuentas_idPlandeCuentas where CodigoConceptoGasto='".$CodigoConceptoGasto."'";
+        $sql="SELECT 
+        solicitudgastos.idConsecutivoSolicitudGastos,
+        solicitudgastos.FechaSolicitud,
+        solicitudgastos.idMunicipioSolicitudGastos,
+        solicitudgastos.EstadoSolicitudGastos,
+        solicitudgastos.ValorTotalSolicitudGastos,
+        municipio.NombreMunicipio
+        FROM solicitudgastos 
+        INNER JOIN municipio ON municipio.idMunicipio=solicitudgastos.idMunicipioSolicitudGastos
+        where solicitudgastos.idConsecutivoSolicitudGastos=".$idConceptodeGasto;
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
 
     function InsertarSolicitudGastos($FechaSolicitud,$CodProyectoSG,$CodProcesoSG,$CodActividadSG,$CodMunicipioSG,$CodEntidadSG,$FechaHoraSalidaSG,$FechaHoraRegresoSG,$CantColeccionSG,$TipoColeccionSG,$TotalSolicitudGastoSG){
-        $sql="INSERT INTO solicitudgastos (FechaSolicitud,idProyectoSolicitudGastos,idProcesoSolicitudGastos,idActividadSolicitudGastos,idMunicipioSolicitudGastos,idEntidadVinculadaSolicitudGastos,FechaSalidaSolicitudGastos,FechaRegresoSolicitudGastos,CantColeccionSolicitudGastos,TipoColeccionSolicitudGastos,EstadoSolicitudGastos,ValorTotalSolicitudGastos) VALUES ('".$FechaSolicitud."',".$CodProyectoSG.",".$CodProcesoSG.",".$CodActividadSG.",".$CodMunicipioSG.",".$CodEntidadSG.",'".$FechaHoraSalidaSG."','".$FechaHoraRegresoSG."',".$CantColeccionSG.",'".$TipoColeccionSG."',1,".$TotalSolicitudGastoSG.")";
+        $sql="INSERT INTO solicitudgastos (FechaSolicitud,idProyectoSolicitudGastos,idProcesoSolicitudGastos,idActividadSolicitudGastos,idMunicipioSolicitudGastos,idEntidadVinculadaSolicitudGastos,FechaSalidaSolicitudGastos,FechaRegresoSolicitudGastos,CantColeccionSolicitudGastos,TipoColeccionSolicitudGastos,EstadoSolicitudGastos,ValorTotalSolicitudGastos) VALUES ('".$FechaSolicitud."',".$CodProyectoSG.",".$CodProcesoSG.",".$CodActividadSG.",".$CodMunicipioSG.",".$CodEntidadSG.",'".$FechaHoraSalidaSG."','".$FechaHoraRegresoSG."',".$CantColeccionSG.",'".$TipoColeccionSG."',0,".$TotalSolicitudGastoSG.")";
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
@@ -52,7 +70,14 @@ Class Proceso_SolicitudGastos{
         return $this->resultado;
     }
 
-    function borrarlineadetalleTMP($idTMP_DetalleSolicitudGastos){
+    function ListarDetallexidSolicitud($IdSolilcitudGasto){
+        $sql="SELECT detallesolicitudgasto.*
+        from detallesolicitudgasto where idConsecutivoSolicitudGasto=".$IdSolilcitudGasto;
+        $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+        return $this->resultado;
+    }
+
+    function borrarlineadetalleTMP($idTMP_DetalleSolicitudGastos){ 
         $sql="DELETE FROM tmp_detallesolicitudgastos WHERE idTMP_DetalleSolicitudGastos=".$idTMP_DetalleSolicitudGastos;
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
@@ -82,6 +107,16 @@ Class Proceso_SolicitudGastos{
 
     function InsertarResponsablesSG($ConsecutivoSolicitud,$idResponsableSG){
         $sql="INSERT INTO solicitudgastos_has_empleado (solicitudgastos_idConsecutivoSolicitudGastos,Empleado_DocumentoEmpleado) VALUES (".$ConsecutivoSolicitud.",".$idResponsableSG.")";
+        $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+        return $this->resultado;
+    }
+
+    function ListaResponsablesxIDsolicitud($idSolcitudGastos){
+        $sql="SELECT
+            solicitudgastos_has_empleado.*
+            from solicitudgastos_has_empleado
+            where solicitudgastos_idConsecutivoSolicitudGastos=".$idSolcitudGastos;
+            
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }

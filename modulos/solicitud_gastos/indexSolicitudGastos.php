@@ -30,6 +30,8 @@
         $listaEntidades=$InstEntidades->ListarEntidades();
         $listaActividades=$InstActividades->ListaActividad();
         $NextSolicitud=$InstSolicitudGasto->ObtenerultimaSolicitudGasto();
+        $ListaSGxLegalizar=$InstSolicitudGasto->ListarSolicitudGastosxEstado(0);
+        $ListaSGxRelacionar=$InstSolicitudGasto->ListarSolicitudGastosxEstado(1);
         
 ?>
 <!DOCTYPE html>
@@ -39,34 +41,112 @@
     
 <!-- </head> -->        
 <body>
-	<?php 
+
+
+    <?php 
 		include_once('../headWeb.php');
 		include_once("../../menu/m_principal.php");
 	?>
         
 
-<div id="wrapper">
-   
+<div id="wrapper">  
     <div id="page-wrapper">
-        <div id="page-inner">						                
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-primary">
+        <div id="page-inner">
+            <div class="panel-body" align="right">
+                <button type="button" class="btn btn-success btn-circle" data-toggle="modal" data-target="#NuevaSolicitudGasto">
+                    <i class="fa fa-plus fa-2x"></i>
+                </button>
+            </div>		
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="height:55px;">
+                    Solicitudes de Gastos <b>pendientes por Legalizar</b>
+                    <div style="float:right;"><button type="button" class="btn btn-primary"><span class="badge"><?php echo $ListaSGxLegalizar->num_rows;?></span></button></div>
                     
-                            <div class="panel-heading">
-                                <h4>Solicitudes de Gastos</h4>
-                            </div>
-                            
-                            <div class="panel-body">
-                                <button type="button" class="btn btn-success btn-circle" data-toggle="modal" data-target="#NuevaSolicitudGasto">
-                                    <i class="fa fa-plus fa-2x"></i>
-                                </button>
-                            </div>
-                       
+                </div>
+                <div class="panel-body">
+
+                    <div class="table-responsive">                                            	                               
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <th>#</th>
+                                <th>Fecha Solicitud</th>
+                                <th>Municipio</th>
+                                <th>Valor Total</th>
+                                <th><span class='glyphicon glyphicon-cog' title='Config'></span></th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    
+                                    while($row=$ListaSGxLegalizar->fetch_array()){
+                                        $datos=$row[0]."||".$row[1]."||".$row[2]."||".$row[3]."||".$row[4]."||".$row[5]."||".$row[6]."||".$row[7]."||".$row[8]."||".$row[9]."||".$row[10]."||".$row[11]."||".$row[12];
+                                        
+                                        $ListaResponsables=$InstSolicitudGasto->ListaResponsablesxIDsolicitud($row[0]);
+                                        $datosResponsables='';
+                                        while ($rowR=$ListaResponsables->fetch_array()) {
+                                            $datosResponsables=$datosResponsables."||".$rowR[2];
+                                        }
+                                ?>
+                                <tr class="odd gradeX">
+                                    <td><?php echo $row[0]; ?></td>
+                                    <td><?php echo $row[1]; ?></td>
+                                    <td><?php echo $row[13]; ?></td>
+                                    <td><?php echo '$'.number_format($row[12]); ?></td>
+                                    <td>
+                                    <button title="Ver" onclick="VerSolicitudGasto('<?php echo $datos;?>','<?php echo $datosResponsables;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#VerSolicitudGasto"><span class="glyphicon glyphicon-info-sign" style="color:blue;"></span></button>
+                                        <button title="Editar" onclick="formeditSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <button title="Legalizar Gasto" onclick="LegalizarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-check" style="color:green;"></span></button>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>     
+            </div>
+            <br>
+            <hr>
+            <br>
+
+
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="height:55px;">
+                    Solicitudes de Gastos <b>X Relacionar</b>
+                    <div style="float:right;"><button type="button" class="btn btn-primary"><span class="badge"><?php echo $ListaSGxRelacionar->num_rows;?></span></button></div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">                                            	                               
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <th>#</th>
+                                <th>Fecha Solicitud</th>
+                                <th>Municipio</th>
+                                <th>Valor Total</th>
+                                <th><span class='glyphicon glyphicon-cog' title='Config'></span></th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    
+                                    while($row=$ListaSGxRelacionar->fetch_array()){
+                                    $datos=$row[0]."||".$row[1]."||".$row[2]."||".$row[3]."||".$row[4]."||".$row[5]."||".$row[6]."||".$row[7]."||".$row[8]."||".$row[9]."||".$row[10]."||".$row[11]."||".$row[12];
+                                ?>
+                                <tr class="odd gradeX">
+                                    <td><?php echo $row[0]; ?></td>
+                                    <td><?php echo $row[1]; ?></td>
+                                    <td><?php echo $row[13]; ?></td>
+                                    <td><?php echo '$'.number_format($row[12]); ?></td>
+                                    <td>
+                                    <button title="Ver" onclick="VerSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#VerSolicitudGasto"><span class="glyphicon glyphicon-info-sign" style="color:blue;"></span></button>
+                                        <button title="Editar" onclick="SolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <button title="Relacionar Gastos" onclick="SolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-new-window" style="color:DarkOrange;"></span></button>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>                                
-        </div>               
+            </div>
+        </div>
     </div>
 </div>
     
@@ -108,8 +188,6 @@
                                     </select>
                                 </div> 
 
-                                 
-
                                 <div class="form-group">
                                     <select class="form-control" name="CodProyectoSG" id="CodProyectoSG" style="width:250px">
                                         <option value="00"> -- Seleccione un Proyecto -- </option>
@@ -123,7 +201,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    
                                     <select class="form-control" name="CodProcesoSG" id="CodProcesoSG" style="width:250px">
                                         <option value="00"> -- Seleccione un Proceso -- </option>
                                         <?php
@@ -205,10 +282,180 @@
                         </div>										 
                     </div>
                 </div>
-            </form>
         </div>
 
     <!-- Final Modal Nuevo Solicitud de gastos --> 
+
+
+
+
+<!-- Inicio modal visualizacion Solicitud Gasto -->
+
+
+            <div class="modal fade" id="VerSolicitudGasto" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div style="display:none;">
+                            <select class="form-control" name="VerCodEntidadSG" id="VerCodEntidadSG">
+                                <?php
+                                    mysqli_data_seek($listaEntidades, 0);																		
+                                    while ($rowEnt=$listaEntidades->fetch_array(MYSQLI_BOTH)) { 
+                                        echo "<option value='".$rowEnt[0]."'>".$rowEnt[2]."</option>";
+                                        }
+                                ?>
+                            </select>
+
+                            <select class="form-control"  name="VerCodMunicipioSG" id="VerCodMunicipioSG">
+                                <?php
+                                    mysqli_data_seek($listaMunicipios,0);																		
+                                    while ($rowMun=$listaMunicipios->fetch_array(MYSQLI_BOTH)) { 
+                                        echo "<option value='".$rowMun[0]."'>".$rowMun[2]."</option>";
+                                        }
+                                ?>
+                            </select>
+
+                            <select class="form-control" name="VerCodProyectoSG" id="VerCodProyectoSG">
+                                <?php
+                                    mysqli_data_seek($listaProyecto, 0);																		
+                                    while ($rowProy=$listaProyecto->fetch_array(MYSQLI_BOTH)) { 
+                                        echo "<option value='".$rowProy[0]."'>".$rowProy[1]."</option>";
+                                        }
+                                ?>
+                            </select>
+
+                            <select class="form-control" name="VerCodProcesoSG" id="VerCodProcesoSG">
+                                <?php
+                                    mysqli_data_seek($listaProcesos, 0);																			
+                                    while ($rowProc=$listaProcesos->fetch_array(MYSQLI_BOTH)) { 
+                                        echo "<option value='".$rowProc[0]."'>".$rowProc[1]."</option>";
+                                        }
+                                ?>
+                            </select> 
+
+                            <select class="form-control" name="VerCodActividadSG" id="VerCodActividadSG">
+                                <?php
+                                    mysqli_data_seek($listaActividades, 0);																			
+                                    while ($rowAct=$listaActividades->fetch_array(MYSQLI_BOTH)) { 
+                                        echo "<option value='".$rowAct[0]."'>".$rowAct[1]."</option>";
+                                        }
+                                ?>
+                            </select>
+                            <select class="js-example-basic-multiple" name="VerresponsableSG" id="VerresponsableSG" multiple="multiple" style="width:230px">
+                                <?php
+                                    mysqli_data_seek($listaEmpleados, 0);
+                                    while ($rowEM=$listaEmpleados->fetch_array(MYSQLI_BOTH)) { 
+                                        echo "<option value='".$rowEM[0]."'>".$rowEM[2]."</option>";
+                                    }
+                                ?>
+                            </select>
+                        </div>           
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>															
+                            <h3 class="modal-title" id="myModalLabel">Solicitud de Gastos - # <label id="VerIdSolicitudGastoSG"></Label></h3>
+                            Fecha Elaboracion  <label align="right" id="VerFechaSolicitudGastoSG"></label>
+                            <div id="msgSolicitudGasto"></div>
+                        </div>
+                        
+                        <div class="panel-body center-block">
+                                    <!-- Row start -->
+                                    <div class="table-responsive">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading clearfix">
+                                                        <h3 class="panel-title">Datos Documento</h3>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="row col-md-6 col-sm-6">
+                                                            <table class="table table-hover">
+                                                                <tbody>
+                                                                    <tr class="table-light">
+                                                                        <th scope="row">Municipio</th>
+                                                                        <td><div name="VerCodMunicipioSGdiv" id="VerCodMunicipioSGdiv"></div></td>
+                                                                    </tr>                                 
+                                                                    <tr class="table-light">
+                                                                        <th scope="row">Entidades</th>
+                                                                        <td><div name="VerCodEntidadSGdiv" id="VerCodEntidadSGdiv"></div></td>
+                                                                    </tr>
+                                                                    <tr class="table-light">
+                                                                        <th scope="row">Proyecto</th>
+                                                                        <td><div name="VerCodProyectoSGdiv" id="VerCodProyectoSGdiv"></div></td>
+                                                                    </tr>
+                                                                    <tr class="table-light">
+                                                                        <th scope="row">Proceso</th>
+                                                                        <td><div name="VerCodProcesoSGdiv" id="VerCodProcesoSGdiv"></div></td>
+                                                                    </tr>
+                                                                    <tr class="table-light">
+                                                                        <th scope="row">Actividad</th>
+                                                                        <td><div name="VerCodActividadSGdiv" id="VerCodActividadSGdiv"></div></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div class="row col-md-6 col-sm-6">
+                                                            <table class="table table-hover">
+                                                                <tbody>
+                                                                    <tr class="table-light">
+                                                                        <th scope="row">Fecha/Hora Salida</th>
+                                                                        <td><div name="VerFechaHoraSalidaSGdiv" id="VerFechaHoraSalidaSGdiv"></div></td>
+                                                                    </tr>
+                                                                    <tr class="table-light">
+                                                                        <th scope="row">Fecha/Hora Regreso</th>
+                                                                        <td><div name="VerFechaHoraRegresoSGdiv" id="VerFechaHoraRegresoSGdiv"></div></td>
+                                                                    </tr>
+                                                                    <tr class="table-light">
+                                                                        <th scope="row">Cant Colección</th>
+                                                                        <td><div name="VerCantColeccionSGdiv" id="VerCantColeccionSGdiv"></div></td>
+                                                                    </tr>
+                                                                    <tr class="table-light">
+                                                                        <th scope="row">Tipo Colección</th>
+                                                                        <td><div name="VerTipoColeccionSGdiv" id="VerTipoColeccionSGdiv"></div></td>
+                                                                    </tr>    
+                                                                </tbody>
+                                                            </table> 
+                                                        </div>
+                                                                       
+                                                        <div class="row col-md-12 col-sm-12">
+                                                        <hr />
+                                                                <label>Responsables</label>
+                                                                <label>
+                                                                    <select class="js-example-basic-multiple" name="VerresponsableSGdiv" id="VerresponsableSGdiv" multiple="multiple">
+                                                                        <?php
+                                                                            mysqli_data_seek($listaEmpleados, 0);
+                                                                            while ($rowEM=$listaEmpleados->fetch_array(MYSQLI_BOTH)) { 
+                                                                                echo "<option value='".$rowEM[0]."'>".$rowEM[2]."</option>";
+                                                                            }
+                                                                        ?>
+                                                                    </select>
+                                                                </label>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- Row end -->
+                            
+
+                            <hr>                            
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div id="ListaDetalleSG"></div>
+                                </div>
+                            </div>
+                            
+                        </div> 
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button Title="Legalizar Gasto" type="button"class="btn-default btn" onclick="LegalizarSolicitudGasto();">Legalizar
+                                                <span class="glyphicon glyphicon-check" style="color:green;"></span>
+                                            </button>
+                            
+                        </div>										 
+                    </div>
+                </div>
+            </div>
+
+<!-- fin modal visualizacion Solicitud Gasto -->
 
     <script src="../../assets/js/jquery-1.10.2.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
@@ -216,6 +463,13 @@
     <script src="../../assets/js/dataTables/jquery.dataTables.js"></script>
     <script src="../../assets/js/dataTables/dataTables.bootstrap.js"></script>
     <script src="../../assets/js/jasny-bootstrap.min.js"></script>
+     
+    <style>
+        table {
+   width: 70%;
+   margin: 0 auto;"
+}
+    </style>
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -224,7 +478,8 @@
        $(document).ready(function() {
                 
                 $('.js-example-basic-multiple').select2({
-                    placeholder:"Responsables"
+                    placeholder:"Responsables",
+                    allowClear: true,
                 });
 
                 $('.js-example-basic-single').select2({
@@ -266,6 +521,23 @@
                         }
                 });
         });
+    function mostrarDetalleSG() {
+        var IsSG=$('#VerIdSolicitudGastoSG').text();
+        var parametros={IsSG};
+        $.ajax({
+            url:'../../logica/logica.php?accion=ListarDetalleSG',
+            type: "POST",
+            data: parametros,
+            beforeSend: function(objeto){
+				 $('#ListaDetalleSG').html('Cargando...');
+		  },
+			success: function(data){
+                $("#ListaDetalleSG").html(data).fadeIn('slow');
+		}
+		});
+        
+    }
+    
     
     function mostrar_items(){
 		var parametros={"action":"ajax"};

@@ -470,7 +470,7 @@
                                                     </div>
                                                     <div class="col-md-1 col-sm-1">
                                                         <div class="input-group">
-                                                            <button type="button" id="AgrgarGastoTMP" onclick="InsertarDetalleTMP();"><span class="glyphicon glyphicon-plus"></span></button> 
+                                                            <button type="button" id="AgrgarGastoTMP" onclick="InsertarDetalleTMP();"><span class="glyphicon glyphicon-arrow-up"></span></button> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -479,17 +479,11 @@
                                     </div>
                                 </div>
                             <!-- Row end -->
-                            
-                                    <div class="form-group col-lg-12 text-right">
-                                        
-                                        <td colspan="4">
-                                            <h4>TOTAL</h4>
-                                        </td>
-                                        <tr>
-                                            <h4><b>$</b><label id="TotalSolicitudGastoSG">'.number_format($suma).'</label></h4>
-                                        </th>
-                                        <td> <div id="mgEliminarDetalleTMP"></div></td>
-                                    </div>                        
+                                <div class="form-group col-lg-12 text-right">
+                                    <div style="width:70%; float:left;"><h4><label>TOTAL</label></h4></div>
+                                    <div style="width:30%; float:right;"><h4><b>$</b><label id="TotalSolicitudGastoSG">'.number_format($suma).'</label></h4></div>
+                                    <div id="mgEliminarDetalleTMP"></div>
+                                </div>                        
                         <div>
                     </div>
                 </div>';
@@ -1585,6 +1579,66 @@
                             echo 3;
                         }
                     }
+                break;
+
+                case 'ListarDetalleSG':
+                    $IsSG=limpiar($_POST['IsSG']);
+                        echo '<div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="table-responsive">
+                                    <!-- Row start -->
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading clearfix">
+                                                        <h3 class="panel-title">Detalle Solicitud de Gastos</h3>
+                                                    </div>
+                                                    
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <table class="table table-striped  table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Item</th>
+                                                                        <th>Concepto Gasto</th>
+                                                                        <th class="text-center">Dias</th>
+                                                                        <th class="text-right">Valor</th>
+                                                                        <th class="text-right">Sub Total</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="items">';
+                                                                    $ListaDetalleSG=$InstSolicitudGasto->ListarDetallexidSolicitud($IsSG);
+                                                                    $items=1;
+                                                                    $suma=0;
+                                                                    if ($ListaDetalleSG->num_rows > 0) {
+                                                                        while($rowSG=$ListaDetalleSG->fetch_array()){
+                                                                        echo '
+                                                                            <tr>
+                                                                                <td class="text-center">'.$items.'</td>
+                                                                                <td>'.$InstSolicitudGasto->getnombreconceptoGasto($rowSG[2]).'</td>
+                                                                                <td class="text-center"> '.$rowSG[3].'</td>
+                                                                                <td class="text-right"> $ '.number_format($rowSG[4]).'</td>
+                                                                                <td class="text-right"> $ '.number_format((intval($rowSG[3])*intval($rowSG[4]))).'</td>
+                                                                            </tr>';
+                                                                            $items++;
+                                                                            $suma+=(intval($rowSG[3])*intval($rowSG[4]));
+                                                                        }
+                                                                    }
+                                                                    echo '
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- Row end -->
+                                    
+                                    <div class="form-group col-lg-12 text-right">
+                                        <div style="width:70%; float:left;"><h4><label>TOTAL</label></h4></div>
+                                        <div style="width:30%; float:right;"><h4><b>$</b><label id="TotalSolicitudGastoSG">'.number_format($suma).'</label></h4></div>
+                                    </div>                        
+                                <div>
+                            </div>';
                 break;
 
             default:
