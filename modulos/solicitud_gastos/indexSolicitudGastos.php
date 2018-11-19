@@ -128,6 +128,12 @@
                                     
                                     while($row=$ListaSGxRelacionar->fetch_array()){
                                     $datos=$row[0]."||".$row[1]."||".$row[2]."||".$row[3]."||".$row[4]."||".$row[5]."||".$row[6]."||".$row[7]."||".$row[8]."||".$row[9]."||".$row[10]."||".$row[11]."||".$row[12];
+
+                                        $ListaResponsables=$InstSolicitudGasto->ListaResponsablesxIDsolicitud($row[0]);
+                                        $datosResponsables='';
+                                        while ($rowR=$ListaResponsables->fetch_array()) {
+                                            $datosResponsables=$datosResponsables."||".$rowR[2];
+                                        }
                                 ?>
                                 <tr class="odd gradeX">
                                     <td><?php echo $row[0]; ?></td>
@@ -135,9 +141,9 @@
                                     <td><?php echo $row[13]; ?></td>
                                     <td><?php echo '$'.number_format($row[12]); ?></td>
                                     <td>
-                                    <button title="Ver" onclick="VerSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#VerSolicitudGasto"><span class="glyphicon glyphicon-info-sign" style="color:blue;"></span></button>
+                                    <button title="Ver" onclick="VerSolicitudGasto('<?php echo $datos;?>','<?php echo $datosResponsables;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#VerSolicitudGasto"><span class="glyphicon glyphicon-info-sign" style="color:blue;"></span></button>
                                         <button title="Editar" onclick="SolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-pencil"></span></button>
-                                        <button title="Relacionar Gastos" onclick="SolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-new-window" style="color:DarkOrange;"></span></button>
+                                        <button title="Relacionar Gastos" onclick="RelacionarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-new-window" style="color:DarkOrange;"></span></button>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -353,7 +359,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>															
                             <h3 class="modal-title" id="myModalLabel">Solicitud de Gastos - # <label id="VerIdSolicitudGastoSG"></Label></h3>
                             Fecha Elaboracion  <label align="right" id="VerFechaSolicitudGastoSG"></label>
-                            <div id="msgSolicitudGasto"></div>
+                            <div id="msgEstado"></div>
                         </div>
                         
                         <div class="panel-body center-block">
@@ -446,9 +452,7 @@
                         </div> 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <button Title="Legalizar Gasto" type="button"class="btn-default btn" onclick="LegalizarSolicitudGasto();">Legalizar
-                                                <span class="glyphicon glyphicon-check" style="color:green;"></span>
-                                            </button>
+                            <div id="msgBotonAccionSG"></div>
                             
                         </div>										 
                     </div>

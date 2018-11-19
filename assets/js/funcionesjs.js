@@ -1999,7 +1999,17 @@ function guardarSolicitudGasto(){
 }
 
 function VerSolicitudGasto(datoPrograma,datoresponsables){
-    deditI=datoPrograma.split('||');
+  var texto;  
+  deditI=datoPrograma.split('||');
+
+    if (deditI[11]==0) {
+      texto='<button Title="Legalizar Gasto" type="button"class="btn-default btn" onclick="LegalizarSolicitudGasto();">Legalizar <span class="glyphicon glyphicon-check" style="color:green;"></span></button>';
+    } else {
+      texto='<button Title="Legalizar Gasto" type="button"class="btn-default btn" onclick="RelacionarSolicitudGasto();">Relacionar Gasto <span class="glyphicon glyphicon-new-window" style="color:DarkOrange;"></span></button>';
+    }
+
+    $('#msgBotonAccionSG').html(texto);
+
     $('#VerIdSolicitudGastoSG').html(deditI[0]);
     $('#VerFechaSolicitudGastoSG').html(deditI[1]);
 
