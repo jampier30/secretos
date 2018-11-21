@@ -11,7 +11,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <?php echo $_SESSION['nombre']; ?>
+                <div class="navbar-brand"><?php echo $_SESSION['nombre']; ?></div>
             </div>
             <div style="color: white;
             padding: 15px 50px 5px 50px;

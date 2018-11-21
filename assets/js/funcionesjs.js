@@ -2069,10 +2069,6 @@ var formatNumber = {
  }
 
 
-
-
-
-
 function formeditTipoNovMater(datoPrograma){
   deditI=datoPrograma.split('||');
   $('#idTipoNovMaterFM').val(deditI[0]);
@@ -2132,6 +2128,66 @@ function EditarTipoNovMater(){
 $("#msgEditTipoNovMater").delay(3000).fadeOut(300);
 return;
 }
+
+function MostrarSolicitudGastoxid() {
+  $('#IdSolicitudGastoSG').change(function(){    
+    var IdSG = $( "#IdSolicitudGastoSG option:selected" ).val();
+    var params = {IdSG};
+    var url = "../../logica/logica.php?accion=getSolcitudGastoxLegalizar";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      console.log("id:"+result[0]);
+
+    console.log("Valor: "+result[12]);          
+    });
+
+  })
+}
+
+//Modulo legalizacion solicitud Gasto
+
+function formeditLegalizSolicGasto(datoPrograma){
+  deditI=datoPrograma.split('||');
+  $('#IdSolicitudGastoSG').val(deditI[0]);
+}
+
+function guardarLegalizSolicitudGasto(){
+  var IdSolicitudGastoSG=$('#IdSolicitudGastoSG').val();
+  var FechaLegalizSG=$("#fecha").text();
+  var responsableSG=$('#responsableSG').val();
+  var VrLegSolicGastoSG=$('#VrLegSolicGastoSG').val();
+  console.log(IdSolicitudGastoSG);
+  if (IdSolicitudGastoSG==0 || FechaLegalizSG==0 || responsableSG==0||VrLegSolicGastoSG==0) {
+    $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  } else {
+    var params = {IdSolicitudGastoSG,FechaLegalizSG,responsableSG,VrLegSolicGastoSG};
+    var url = "../../logica/logica.php?accion=InsertarLegalizSolicitudGasto";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
+        location.reload();
+      } else if (result == 3) {
+        $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
+      }
+    });
+  }
+  $("#msgLegalizSolicitudGasto").delay(3000).fadeOut(300);
+  return;
+}
+ 
 
 
 

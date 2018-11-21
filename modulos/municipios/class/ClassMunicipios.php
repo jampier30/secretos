@@ -23,8 +23,6 @@ Class Proceso_Municipios{
     }
 
     function ListaMunicipio(){
-
-
         $sql="SELECT municipio.*,
             region.DescRegion,
             tipomunicipio.DescTipoMunicipio,
@@ -34,7 +32,7 @@ Class Proceso_Municipios{
             inner join region on municipio.Region_idRegion=region.idRegion
             inner join tipomunicipio on municipio.TipoMunicipio_idTipoMunicipio=tipomunicipio.idTipoMunicipio
             inner join tipotarifa on municipio.idTipoTarifa=tipotarifa.idTipoTarifa
-            inner join departamento on municipio.departamento_idDepartamento=departamento.idDepartamento  ";
+            inner join departamento on municipio.departamento_idDepartamento=departamento.idDepartamento  ORDER BY NombreMunicipio";
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }

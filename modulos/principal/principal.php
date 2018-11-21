@@ -28,7 +28,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="modulos/usuarios/perfil.php"><?php echo $_SESSION['nombre']; ?></a> 
+                <a class="navbar-brand"><?php echo $_SESSION['nombre']; ?></a> 
             </div>
             <div style="color: white; -->
             padding: 15px 50px 5px 50px;

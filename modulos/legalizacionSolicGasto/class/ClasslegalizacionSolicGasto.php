@@ -20,7 +20,7 @@ Class Proceso_LegalizacionSolicitudGastos{
 
     function InsertarLegalizSolicitudGastos($idSolicitudGasto, $FechaLegalizacion,$UsuarioLegalizacion,$ValorLegalizacion){
         $sql="INSERT INTO legalizacionsolictudgasto (idSolicitudGasto,FechaLegalizacion,UsuarioLegalizacion,ValorLegalizacion)
-         VALUES('".$idSolicitudGasto."','".$FechaLegalizacion."','".$UsuarioLegalizacion."','".$ValorLegalizacion."')";
+         VALUES(".$idSolicitudGasto.",'".$FechaLegalizacion."',".$UsuarioLegalizacion.",".$ValorLegalizacion.")";
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }

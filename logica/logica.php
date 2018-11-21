@@ -447,7 +447,9 @@
                                                 <div class="row">
                                                     <div class="col-md-4 col-sm-4">
                                                             <div class="input-group">
-                                                                <select  class="form-control" name="ConceptoGastoSG" id="ConceptoGastoSG">';
+                                                                <select  class="form-control" name="ConceptoGastoSG" id="ConceptoGastoSG">
+                                                                    <option value=0> --- Seleccione un concepto de Gasto --- </option>';
+                                                                    
                                                                     while ($rowCG=$listaConceptoGasto->fetch_array()) {
                                                                         echo "<option value='".$rowCG[0]."'>".$rowCG[1]."-\t".$rowCG[2]."</option>";
                                                                     }                
@@ -488,19 +490,15 @@
                     </div>
                 </div>';
             break;
+
             case 'InsertarDetalleTMP':
                                             
-                $ConsecutivoSolcitudG=intval($_POST['IdSolicitudGasto']);
                 $IdConceptoGasto=$_POST['ConceptoGastoSG'];
                 $NumDias=$_POST['NumDiasSG'];
                 $ValorSolicitud=str_replace(',','',$_POST['ValorConceptoSG']);
-                $InsertarTPMDetalle=$InstSolicitudGasto->InsertarDetalleTMP($ConsecutivoSolcitudG,$IdConceptoGasto,$NumDias,$ValorSolicitud);
-                // if ($InsertarTPMDetalle) {
-                //    echo 1;
-                // } else {
-                //     echo 0;
-                // }
+                $InsertarTPMDetalle=$InstSolicitudGasto->InsertarDetalleTMP($IdConceptoGasto,$NumDias,$ValorSolicitud);
             break;
+
             case 'eliminar_item':
                 $id_detalleTMP_Eliminar=$_POST['id_detalle_TMP'];
                 $delete=$InstSolicitudGasto->borrarlineadetalleTMP($id_detalleTMP_Eliminar);
@@ -1515,7 +1513,6 @@
 
             case 'InsertarSolicitudGasto':
 
-                $IdSolicitudGastoSG=$_POST['IdSolicitudGastoSG'];
                 $fecha=$_POST['fecha'];
                 $CodProyectoSG=$_POST['CodProyectoSG'];
                 $CodProcesoSG=$_POST['CodProcesoSG'];
@@ -1529,23 +1526,20 @@
                 $TipoColeccionSG=$_POST['TipoColeccionSG'];
                 $TotalSolicitudGastoSG=str_replace(',','',$_POST['TotalSolicitudGastoSG']);
 
-                                
                 $InsertarSolicitudGastoCab=$InstSolicitudGasto->InsertarSolicitudGastos($fecha,$CodProyectoSG,$CodProcesoSG,$CodActividadSG,$CodMunicipioSG,$CodEntidadSG,$FechaHoraSalidaSG,$FechaHoraRegresoSG,$CantColeccionSG,$TipoColeccionSG,$TotalSolicitudGastoSG);
-                
+
                 if($InsertarSolicitudGastoCab>0){
-                    for($i=0; $i<count($responsableSG); $i++)
-                        {
-                            $InsertarResponsbleSG=$InstSolicitudGasto->InsertarResponsablesSG($IdSolicitudGastoSG,$responsableSG[$i]);
+                        for($i=0; $i<count($responsableSG); $i++){
+                            $InsertarResponsbleSG=$InstSolicitudGasto->InsertarResponsablesSG($InsertarSolicitudGastoCab,$responsableSG[$i]);
                         }
-                    if ($InsertarResponsbleSG > 0) {
-                        $CopiarDetalleTMP=$InstSolicitudGasto->CopiarTPMDetalle();
-                        if ($CopiarDetalleTMP > 0) {
-                            $BorrarTPMDetalle=$InstSolicitudGasto->vaciarTMPDetalle();
-                        }  
-                    }
+                        $ListaDetalleTMP=$InstSolicitudGasto->listardetalleTMP();
+                        while ($rowDSG=$ListaDetalleTMP->fetch_array(MYSQLI_BOTH)) { 
+                            $InsertandoDetalleSG=$InstSolicitudGasto->InsertarTPMaDetalle($InsertarSolicitudGastoCab,$rowDSG[1], $rowDSG[2],$rowDSG[3]);
+                        }
+                        $BorrarTMPDetalle=$InstSolicitudGasto->vaciarTMPDetalle();
                     echo 1;              
                 }else{
-                echo 0;
+                    echo 0;
                 }
                 
             break;
@@ -1639,6 +1633,31 @@
                                     </div>                        
                                 <div>
                             </div>';
+                break;
+                case 'getSolcitudGastoxLegalizar':
+                    $IdSG=$_POST['IdSG'];
+                    $listaSolicGastos=$InstSolicitudGasto->BuscarSolicitudGastosxid($IdSG);
+                    echo json_encode($listaSolicGastos->fetch_array());
+                break;
+
+                // Modulo Legalizacion solicitud de gastos
+
+                case 'InsertarLegalizSolicitudGasto':
+                    require_once("../modulos/legalizacionSolicGasto/class/ClasslegalizacionSolicGasto.php");
+                    $InstLegalizSolictGasto= new Proceso_LegalizacionSolicitudGastos($InstanciaDB);
+
+                    $IdSolicitudGastoSG=$_POST['IdSolicitudGastoSG'];
+                    $FechaLegalizSG=$_POST['FechaLegalizSG'];
+                    $responsableSG=$_POST['responsableSG'];
+                    $VrLegSolicGastoSG=$_POST['VrLegSolicGastoSG'];       
+                    $InsertarLegalizSolicGastoCab=$InstLegalizSolictGasto->InsertarLegalizSolicitudGastos($IdSolicitudGastoSG,$FechaLegalizSG,$responsableSG,$VrLegSolicGastoSG);
+                    
+                    if($InsertarLegalizSolicGastoCab>0){
+                        $CambioEstdoSG=$InstSolicitudGasto->CambiarEstadoSG($IdSolicitudGastoSG);
+                        echo 1;             
+                    }else{
+                    echo 0;
+                    }
                 break;
 
             default:

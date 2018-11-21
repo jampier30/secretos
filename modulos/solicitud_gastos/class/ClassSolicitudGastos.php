@@ -29,15 +29,11 @@ Class Proceso_SolicitudGastos{
 
     function BuscarSolicitudGastosxid($idSolicitudGastos){
         $sql="SELECT 
-        solicitudgastos.idConsecutivoSolicitudGastos,
-        solicitudgastos.FechaSolicitud,
-        solicitudgastos.idMunicipioSolicitudGastos,
-        solicitudgastos.EstadoSolicitudGastos,
-        solicitudgastos.ValorTotalSolicitudGastos,
+        solicitudgastos.*,
         municipio.NombreMunicipio
         FROM solicitudgastos 
         INNER JOIN municipio ON municipio.idMunicipio=solicitudgastos.idMunicipioSolicitudGastos
-        where solicitudgastos.idConsecutivoSolicitudGastos=".$idConceptodeGasto;
+        where solicitudgastos.idConsecutivoSolicitudGastos=".$idSolicitudGastos;
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
@@ -45,7 +41,7 @@ Class Proceso_SolicitudGastos{
     function InsertarSolicitudGastos($FechaSolicitud,$CodProyectoSG,$CodProcesoSG,$CodActividadSG,$CodMunicipioSG,$CodEntidadSG,$FechaHoraSalidaSG,$FechaHoraRegresoSG,$CantColeccionSG,$TipoColeccionSG,$TotalSolicitudGastoSG){
         $sql="INSERT INTO solicitudgastos (FechaSolicitud,idProyectoSolicitudGastos,idProcesoSolicitudGastos,idActividadSolicitudGastos,idMunicipioSolicitudGastos,idEntidadVinculadaSolicitudGastos,FechaSalidaSolicitudGastos,FechaRegresoSolicitudGastos,CantColeccionSolicitudGastos,TipoColeccionSolicitudGastos,EstadoSolicitudGastos,ValorTotalSolicitudGastos) VALUES ('".$FechaSolicitud."',".$CodProyectoSG.",".$CodProcesoSG.",".$CodActividadSG.",".$CodMunicipioSG.",".$CodEntidadSG.",'".$FechaHoraSalidaSG."','".$FechaHoraRegresoSG."',".$CantColeccionSG.",'".$TipoColeccionSG."',0,".$TotalSolicitudGastoSG.")";
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
-        return $this->resultado;
+        return $this->ConnxClass->link->insert_id;
     }
 
     function EditarSolicitudGastos($idConceptodeGasto,$CodigoConceptoGasto,$DesConceptodeGasto,$TarifaSN,$idTipodeGasto,$idPlandeCuentas,$EstadoConceptoGasto){
@@ -83,8 +79,8 @@ Class Proceso_SolicitudGastos{
         return $this->resultado;
     }
 
-    function InsertarDetalleTMP($ConsecutivoSolicitud,$ConceptoSolicitud,$Numerodias,$ValorSolicitud){
-        $sql="INSERT INTO tmp_detallesolicitudgastos (TMP_ConsecutivoSolicitudGastos,TMP_IdConceptoSolicitudGastos,TMP_NumDisSolicitudGastos,TMP_ValorundSolicitudGastos) VALUES (".$ConsecutivoSolicitud.",".$ConceptoSolicitud.",".$Numerodias.",".$ValorSolicitud.")";
+    function InsertarDetalleTMP($ConceptoSolicitud,$Numerodias,$ValorSolicitud){
+        $sql="INSERT INTO tmp_detallesolicitudgastos (TMP_IdConceptoSolicitudGastos,TMP_NumDisSolicitudGastos,TMP_ValorundSolicitudGastos) VALUES (".$ConceptoSolicitud.",".$Numerodias.",".$ValorSolicitud.")";
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
@@ -121,10 +117,15 @@ Class Proceso_SolicitudGastos{
         return $this->resultado;
     }
 
-    function CopiarTPMDetalle(){
+    function InsertarTPMaDetalle($idConsecutivoSolicitudGasto, $idConceptoGastoDetalleSolicitud, $NumdiasTrayectoDetalleSolicitud,$ValorUnitarioDetalleSolicitud){
         $sql="INSERT INTO detallesolicitudgasto (idConsecutivoSolicitudGasto, idConceptoGastoDetalleSolicitud, NumdiasTrayectoDetalleSolicitud,ValorUnitarioDetalleSolicitud)
-        SELECT TMP_ConsecutivoSolicitudGastos, TMP_IdConceptoSolicitudGastos, TMP_NumDisSolicitudGastos,TMP_ValorundSolicitudGastos
-        FROM tmp_detallesolicitudgastos";
+        VALUES (".$idConsecutivoSolicitudGasto.",".$idConceptoGastoDetalleSolicitud.",".$NumdiasTrayectoDetalleSolicitud.",".$ValorUnitarioDetalleSolicitud.")";
+        $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+        return $this->resultado;
+    }
+
+    function CambiarEstadoSG($IdSolicitudGasto){
+        $sql="UPDATE solicitudgastos SET EstadoSolicitudGastos=1 where idConsecutivoSolicitudGastos=".$IdSolicitudGasto;
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }

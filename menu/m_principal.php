@@ -112,6 +112,9 @@
                             <a href="../solicitud_gastos/indexSolicitudGastos.php"> Solicitud Gastos de Viaje</a>
                         </li>
                         <li>
+                            <a href="../legalizacionSolicGasto/indexlegalizacionSolicGasto.php"> Legalizar Gastos</a>
+                        </li>
+                        <li>
                             <a href="#"> Asignacion de Donantes</a>
                         </li>							
                         <li>

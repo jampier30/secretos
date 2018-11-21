@@ -164,7 +164,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>															
-                            <h3 align="center" class="modal-title" id="myModalLabel">Nueva Solicitud de Gastos - # <label id="IdSolicitudGastoSG"> <?php echo $NextSolicitud; ?></Label></h3>
+                            <h3 align="center" class="modal-title" id="myModalLabel">Nueva Solicitud de Gastos</h3>
                             <div id="msgSolicitudGasto"></div>
                         </div>
                         <div id="msgInstitucionNuevo"></div>
@@ -542,7 +542,6 @@
         
     }
     
-    
     function mostrar_items(){
 		var parametros={"action":"ajax"};
 		$.ajax({
@@ -559,11 +558,10 @@
     }
 
 function InsertarDetalleTMP(){
-    var IdSolicitudGasto =$('#IdSolicitudGastoSG').text();
     var ConceptoGastoSG=$('#ConceptoGastoSG').val();
     var NumDiasSG=$('#NumDiasSG').val();
     var ValorConceptoSG=$('#ValorConceptoSG').val();
-    var parametros =  {IdSolicitudGasto,ConceptoGastoSG,NumDiasSG,ValorConceptoSG};
+    var parametros =  {ConceptoGastoSG,NumDiasSG,ValorConceptoSG};
     $.ajax({
         type: "POST",
         url:'../../logica/logica.php?accion=InsertarDetalleTMP',
