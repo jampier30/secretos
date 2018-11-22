@@ -94,7 +94,7 @@
                                     <td>
                                     <button title="Ver" onclick="VerSolicitudGasto('<?php echo $datos;?>','<?php echo $datosResponsables;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#VerSolicitudGasto"><span class="glyphicon glyphicon-info-sign" style="color:blue;"></span></button>
                                         <button title="Editar" onclick="formeditSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-pencil"></span></button>
-                                        <button title="Legalizar Gasto" onclick="LegalizarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-check" style="color:green;"></span></button>
+                                        <button title="Legalizar Gasto" onclick="LegalizarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-arrow-right" style="color:green;"></span> <span style="color:green;"> $</span></button>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -143,7 +143,7 @@
                                     <td>
                                     <button title="Ver" onclick="VerSolicitudGasto('<?php echo $datos;?>','<?php echo $datosResponsables;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#VerSolicitudGasto"><span class="glyphicon glyphicon-info-sign" style="color:blue;"></span></button>
                                         <button title="Editar" onclick="SolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-pencil"></span></button>
-                                        <button title="Relacionar Gastos" onclick="RelacionarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-new-window" style="color:DarkOrange;"></span></button>
+                                        <button title="Relacionar Gastos" onclick="RelacionarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-arrow-right" style="color:rgb(255, 128, 0);"></span> <span class="glyphicon glyphicon-new-window" style="color:rgb(255, 128, 0);"></span></button>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -156,6 +156,10 @@
     </div>
 </div>
     
+    <!-- Inicio Modal de legalizacion de Gastos -->
+    <?php require_once('../legalizacionSolicGasto/modalnuevalegalizacion.php');?>
+
+    <!-- Fin Modal de leglizacion de Gastos -->
 
     <!-- Inicio Modal Nueva Solicitud de gastos --> 
 
@@ -451,8 +455,10 @@
                             
                         </div> 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <div id="msgBotonAccionSG"></div>
+                            <div style="width:30%; float:right;" class="btn-group">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            </div>
+                            <div style="width:70%; float:left;" id="msgBotonAccionSG"></div>
                             
                         </div>										 
                     </div>

@@ -2003,9 +2003,10 @@ function VerSolicitudGasto(datoPrograma,datoresponsables){
   deditI=datoPrograma.split('||');
 
     if (deditI[11]==0) {
-      texto='<button Title="Legalizar Gasto" type="button"class="btn-default btn" onclick="LegalizarSolicitudGasto();">Legalizar <span class="glyphicon glyphicon-check" style="color:green;"></span></button>';
+      texto='<button Title="Legalizar Gasto" type="button" class="btn-default btn" onclick="LegalizarSolicitudGasto();"><span class="glyphicon glyphicon-arrow-right" style="color:green;"></span> <span style="color:green;">$</span></button>';
+      
     } else {
-      texto='<button Title="Legalizar Gasto" type="button"class="btn-default btn" onclick="RelacionarSolicitudGasto();">Relacionar Gasto <span class="glyphicon glyphicon-new-window" style="color:DarkOrange;"></span></button>';
+      texto='<button Title="Legalizar Gasto" type="button"class="btn-default btn" onclick="RelacionarSolicitudGasto();"><span class="glyphicon glyphicon-arrow-right" style="color:rgb(255, 128, 0);"></span> <span class="glyphicon glyphicon-new-window" style="color:rgb(255, 128, 0);"></span></button>';
     }
 
     $('#msgBotonAccionSG').html(texto);
@@ -2186,6 +2187,14 @@ function guardarLegalizSolicitudGasto(){
   }
   $("#msgLegalizSolicitudGasto").delay(3000).fadeOut(300);
   return;
+}
+
+function LegalizarSolicitudGasto(datoPrograma){
+  deditI=datoPrograma.split('||');
+  
+  $('#IdSolicitudGastoSG option[value='+ deditI[0] +']').attr('selected',true);
+  $('#idTipoNovMaterFM').val(deditI[0]);
+  $('#descTipoNovMaterFM').val(deditI[1]);
 }
  
 

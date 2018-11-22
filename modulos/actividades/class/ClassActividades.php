@@ -23,7 +23,7 @@ Class Proceso_Actividad{
     }
 
     function ListaActividad(){
-        $sql="SELECT * FROM actividad";
+        $sql="SELECT * FROM actividad ORDER BY DescripcionActividad";
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }

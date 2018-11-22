@@ -7,7 +7,7 @@ Class Proceso_ConceptoGastos{
      }
 
     function ListarConceptoGastos(){
-        $sql="SELECT conceptodegasto.idConceptodeGasto, conceptodegasto.CodigoConceptoGasto, conceptodegasto.DesConceptodeGasto, conceptodegasto.TarifaSN, tipodegasto.DescTipodeGasto, plandecuentas.DescPlandeCuentas, conceptodegasto.EstadoConceptoGasto,tipodegasto.idTipodeGasto,plandecuentas.idPlandeCuentas FROM conceptodegasto INNER JOIN tipodegasto ON conceptodegasto.TipodeGasto_idTipodeGasto=tipodegasto.idTipodeGasto INNER JOIN plandecuentas ON plandecuentas.idPlandeCuentas=conceptodegasto.PlandeCuentas_idPlandeCuentas";
+        $sql="SELECT conceptodegasto.idConceptodeGasto, conceptodegasto.CodigoConceptoGasto, conceptodegasto.DesConceptodeGasto, conceptodegasto.TarifaSN, tipodegasto.DescTipodeGasto, plandecuentas.DescPlandeCuentas, conceptodegasto.EstadoConceptoGasto,tipodegasto.idTipodeGasto,plandecuentas.idPlandeCuentas FROM conceptodegasto INNER JOIN tipodegasto ON conceptodegasto.TipodeGasto_idTipodeGasto=tipodegasto.idTipodeGasto INNER JOIN plandecuentas ON plandecuentas.idPlandeCuentas=conceptodegasto.PlandeCuentas_idPlandeCuentas ORDER BY CodigoConceptoGasto";
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
