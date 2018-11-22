@@ -2160,7 +2160,7 @@ function formeditLegalizSolicGasto(datoPrograma){
 function guardarLegalizSolicitudGasto(){
   var IdSolicitudGastoSG=$('#IdSolicitudGastoSG').val();
   var FechaLegalizSG=$("#fecha").text();
-  var responsableSG=$('#responsableSG').val();
+  var responsableSG=$('#responsableSG2').val();
   var VrLegSolicGastoSG=$('#VrLegSolicGastoSG').val();
   console.log(IdSolicitudGastoSG);
   if (IdSolicitudGastoSG==0 || FechaLegalizSG==0 || responsableSG==0||VrLegSolicGastoSG==0) {
@@ -2192,7 +2192,8 @@ function guardarLegalizSolicitudGasto(){
 function LegalizarSolicitudGasto(datoPrograma){
   deditI=datoPrograma.split('||');
   
-  $('#IdSolicitudGastoSG option[value='+ deditI[0] +']').attr('selected',true);
+  $('#NuevaLegalizSolicitudGasto').modal('show');
+  $('#IdSolicitudGastoSG2 option[value='+ deditI[0] +']').attr('selected',true);
   $('#idTipoNovMaterFM').val(deditI[0]);
   $('#descTipoNovMaterFM').val(deditI[1]);
 }

@@ -12,7 +12,7 @@
         $InstEmpleados=new Proceso_Empleados($InstanciaDB);
         $InstLegalizSolicGastos=new Proceso_LegalizacionSolicitudGastos($InstanciaDB);
        
-        $listaSolicGastos=$InstSolicGastos->ListarSolicitudGastosxEstado(0);
+        $ListaSGxLegalizar=$InstSolicGastos->ListarSolicitudGastosxEstado(0);
         $listaEmpleados=$InstEmpleados->ListarEmpleados();
         $ListaLegSolicGastos=$InstLegalizSolicGastos->ListarLegalizSolicitudGastos();
 ?>
@@ -52,7 +52,7 @@
 
                <!-- Inicio Modal Nueva Legalizacion de solicitud de gastos --> 
 
-                    <?php require_once('../legalizacionSolicGasto/modalnuevalegalizacion.php'); ?>
+                    <?php include_once('modalnuevalegalizacion.php'); ?>
 
     <!-- Final Modal Nuevo Solicitud de gastos --> 
 
