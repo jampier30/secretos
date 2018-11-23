@@ -13,7 +13,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <!-- <head> -->
     <?php include_once('../headScript.php'); ?>
-<!-- </head> -->        
+<!-- </head> --> 
+
 <body>
     <div id="wrapper">
         <?php 
@@ -21,8 +22,10 @@
             include_once("../../menu/m_principal.php");
         ?>
         <div id="page-wrapper" >
+       
             <div id="page-inner">
                 <div class="panel-body" align="right">  
+                            <img align= left src="programas.png" width="80" height="80"/>
                     <button type="button" class="btn btn-success btn-circle" data-toggle="modal" data-target="#modalinsertPrograma">
                         <i class="fa fa-plus fa-2x"></i>
                     </button>
@@ -81,7 +84,8 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h3 class="modal-title" id="exampleModalLabel">Nuevo Programa</h3>
+                        <img align= left src="programas+.png" width="60" height="60" />
+                        <h3 class="modal-title" id="exampleModalLabel">.       Nuevo Programa   </h3>
                         <div class="col-md-10">
                             <div id="msgPrograma"></div>
                         </div>

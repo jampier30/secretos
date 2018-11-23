@@ -22,7 +22,8 @@
         <div id="page-wrapper" >
             <div id="page-inner">						                
                  <!-- /. ROW  -->               
-                <div class="panel-body" align="right">                                                                                 
+                <div class="panel-body" align="right">     
+			        	<img align= left src="Precio.png" width="60" height="60"/>                                                                            
 					<button type="button" class="btn btn-success btn-circle" data-toggle="modal" data-target="#ModalNuevoPlanCuentas">
 						<i class="fa fa-plus fa-2x"></i>
 					</button>
@@ -79,7 +80,8 @@
 													<div class="modal-dialog">
 														<div class="modal-content">
 															<div class="modal-header">
-																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>															
+																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+																<img align= left src="Precio+.png" width=50" height="50"/>															
 																<h3 align="center" class="modal-title" id="myModalLabel">Nuevo Plan de Cuentas</h3>
 															</div>
 															<div id="msgPlanCuentasNuevo"></div>
@@ -121,6 +123,7 @@
 														<div class="modal-content">
 															<div class="modal-header">
 																<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>															
+																<img align= left src="Actualizacion.png" width="50" height="50"/>	
 																<h3 align="center" class="modal-title" id="myModalLabel">Actualizar Plan de Cuentas</h3>
 																<div id="msgEditTipoGastoFM"></div>
 															</div>

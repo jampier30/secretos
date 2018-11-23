@@ -12,7 +12,8 @@
         $InstEmpleados=new Proceso_Empleados($InstanciaDB);
         $InstLegalizSolicGastos=new Proceso_LegalizacionSolicitudGastos($InstanciaDB);
        
-        $ListaSGxLegalizar=$InstSolicGastos->ListarSolicitudGastosxEstado(0);
+        $listaSolicGastos=$InstSolicGastos->ListarSolicitudGastosxEstado(0);
+        // $ValorSolcitud=$InstSolicGastos->BuscarSolicitudGastosxid();
         $listaEmpleados=$InstEmpleados->ListarEmpleados();
         $ListaLegSolicGastos=$InstLegalizSolicGastos->ListarLegalizSolicitudGastos();
 ?>
@@ -52,7 +53,7 @@
 
                <!-- Inicio Modal Nueva Legalizacion de solicitud de gastos --> 
 
-                    <?php include_once('modalnuevalegalizacion.php'); ?>
+                    <?php require_once('../legalizacionSolicGasto/modalnuevalegalizacion.php'); ?>
 
     <!-- Final Modal Nuevo Solicitud de gastos --> 
 
@@ -77,40 +78,22 @@
                     dropdownParent: $("#NuevaLegalizSolicitudGasto")
                 });
 
+                $('#IdSolicitudGastoSG').change(function(){    
+                    var IdSG = $( "#IdSolicitudGastoSG option:selected" ).val();
+                    var params = {IdSG};
+                    var url = "../../logica/logica.php?accion=getSolcitudGastoxLegalizar";
+                    $.ajax({
+                    url: url,
+                    type: 'POST',
+                    cache: false,
+                    dataType: 'json',
+                    data: params,
+                    }).done(function(result) {
+                    $('#VrLegSolicGastoSG').val(result[12]);          
+                    });
+                   
+                })
 
-                $('.NumeroDias').on("keypress keyup blur",function (event) {    
-                    $(this).val($(this).val().replace(/[^\d].+/, ""));
-                    if ((event.which < 48 || event.which > 57)) {
-                        if (event.which == 8) {
-                            
-                        }else{
-                            event.preventDefault();
-                        }
-                    }
-                });
-
-                $("#ValorGasto").on({
-                    "focus": function(event) {
-                        $(event.target).select();
-                    },
-                    "keyup": function(event) {
-                        $(event.target).val(function(index, value) {
-                        return value.replace(/\D/g, "")
-                            .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
-                        });
-                    }
-                });
-
-                $(".ValorGasto").on("keypress keyup",function (event) {    
-                        $(this).val($(this).val().replace(/[^0-9\.]/g,','));
-                        if (($(this).val().indexOf(',') != -1) && (event.which < 48 || event.which > 57)) {
-                            if (event.which == 8 || event.which == 44) {
-
-                            }else{
-                                event.preventDefault();
-                            }
-                        }
-                });
         });
     
     function mostrar_items(){

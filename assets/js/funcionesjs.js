@@ -2130,70 +2130,50 @@ $("#msgEditTipoNovMater").delay(3000).fadeOut(300);
 return;
 }
 
-function MostrarSolicitudGastoxid() {
-  $('#IdSolicitudGastoSG').change(function(){    
-    var IdSG = $( "#IdSolicitudGastoSG option:selected" ).val();
-    var params = {IdSG};
-    var url = "../../logica/logica.php?accion=getSolcitudGastoxLegalizar";
-    $.ajax({
-      url: url,
-      type: 'POST',
-      cache: false,
-      dataType: 'json',
-      data: params,
-    }).done(function(result) {
-      console.log("id:"+result[0]);
-
-    console.log("Valor: "+result[12]);          
-    });
-
-  })
-}
-
 //Modulo legalizacion solicitud Gasto
 
-function formeditLegalizSolicGasto(datoPrograma){
-  deditI=datoPrograma.split('||');
-  $('#IdSolicitudGastoSG').val(deditI[0]);
-}
-
-function guardarLegalizSolicitudGasto(){
-  var IdSolicitudGastoSG=$('#IdSolicitudGastoSG').val();
-  var FechaLegalizSG=$("#fecha").text();
-  var responsableSG=$('#responsableSG2').val();
-  var VrLegSolicGastoSG=$('#VrLegSolicGastoSG').val();
-  console.log(IdSolicitudGastoSG);
-  if (IdSolicitudGastoSG==0 || FechaLegalizSG==0 || responsableSG==0||VrLegSolicGastoSG==0) {
-    $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
-  } else {
-    var params = {IdSolicitudGastoSG,FechaLegalizSG,responsableSG,VrLegSolicGastoSG};
-    var url = "../../logica/logica.php?accion=InsertarLegalizSolicitudGasto";
-    $.ajax({
-      url: url,
-      type: 'POST',
-      cache: false,
-      dataType: 'json',
-      data: params,
-    }).done(function(result) {
-      if(result == 1){
-        $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
-        location.reload();
-      } else if (result == 3) {
-        $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
-      } else {
-        $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
+      function formeditLegalizSolicGasto(datoPrograma){
+        deditI=datoPrograma.split('||');
+        $('#IdSolicitudGastoSG').val(deditI[0]);
       }
-    });
-  }
-  $("#msgLegalizSolicitudGasto").delay(3000).fadeOut(300);
-  return;
-}
+
+      function guardarLegalizSolicitudGasto(){
+        var IdSolicitudGastoSG=$('#IdSolicitudGastoSG').val();
+        var FechaLegalizSG=$("#fecha").text();
+        var responsableSG=$('#responsableSG2').val();
+        console.log(responsableSG);
+        var VrLegSolicGastoSG=$('#VrLegSolicGastoSG').val();
+        
+        if (IdSolicitudGastoSG==0 || FechaLegalizSG==0 || responsableSG==0||VrLegSolicGastoSG==0) {
+          $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+        } else {
+          var params = {IdSolicitudGastoSG,FechaLegalizSG,responsableSG,VrLegSolicGastoSG};
+          var url = "../../logica/logica.php?accion=InsertarLegalizSolicitudGasto";
+          $.ajax({
+            url: url,
+            type: 'POST',
+            cache: false,
+            dataType: 'json',
+            data: params,
+          }).done(function(result) {
+            if(result == 1){
+              $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
+              location.reload();
+            } else if (result == 3) {
+              $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+            } else {
+              $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
+            }
+          });
+        }
+        $("#msgLegalizSolicitudGasto").delay(3000).fadeOut(300);
+        return;
+      }
 
 function LegalizarSolicitudGasto(datoPrograma){
   deditI=datoPrograma.split('||');
   
-  $('#NuevaLegalizSolicitudGasto').modal('show');
-  $('#IdSolicitudGastoSG2 option[value='+ deditI[0] +']').attr('selected',true);
+  $('#IdSolicitudGastoSG option[value='+ deditI[0] +']').attr('selected',true);
   $('#idTipoNovMaterFM').val(deditI[0]);
   $('#descTipoNovMaterFM').val(deditI[1]);
 }

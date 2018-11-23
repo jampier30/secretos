@@ -94,7 +94,7 @@
                                     <td>
                                     <button title="Ver" onclick="VerSolicitudGasto('<?php echo $datos;?>','<?php echo $datosResponsables;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#VerSolicitudGasto"><span class="glyphicon glyphicon-info-sign" style="color:blue;"></span></button>
                                         <button title="Editar" onclick="formeditSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-pencil"></span></button>
-                                        <button title="Legalizar Gasto" onclick="LegalizarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#NuevaLegalizSolicitudGasto"><span class="glyphicon glyphicon-arrow-right" style="color:green;"></span> <span style="color:green;"> $</span></button>
+                                        <button title="Legalizar Gasto" onclick="LegalizarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-arrow-right" style="color:green;"></span> <span style="color:green;"> $</span></button>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -106,6 +106,7 @@
             <br>
             <hr>
             <br>
+
 
             <div class="panel panel-primary">
                 <div class="panel-heading" style="height:55px;">
@@ -155,7 +156,10 @@
     </div>
 </div>
     
-    
+    <!-- Inicio Modal de legalizacion de Gastos -->
+    <?php require_once('../legalizacionSolicGasto/modalnuevalegalizacion.php');?>
+
+    <!-- Fin Modal de leglizacion de Gastos -->
 
     <!-- Inicio Modal Nueva Solicitud de gastos --> 
 
@@ -463,15 +467,6 @@
 
 <!-- fin modal visualizacion Solicitud Gasto -->
 
-
-
-    <!-- Inicio Modal de legalizacion de Gastos -->
-        <?php 
-            require_once('../legalizacionSolicGasto/modalnuevalegalizacion.php');
-        ?>
-
-    <!-- Fin Modal de leglizacion de Gastos -->
-
     <script src="../../assets/js/jquery-1.10.2.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/jquery.metisMenu.js"></script>
@@ -498,8 +493,7 @@
                 });
 
                 $('.js-example-basic-single').select2({
-                    dropdownParent: $("#NuevaSolicitudGasto"),
-                    dropdownParent: $("#NuevaLegalizSolicitudGasto")
+                    dropdownParent: $("#NuevaSolicitudGasto")
                 });
 
 

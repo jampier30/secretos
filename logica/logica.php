@@ -1,10 +1,10 @@
 <?php 
     session_start();
     require_once("../modulos/conn_BD.php");
-    require_once("../modulos/usuarios/class/ClassUsuario.php");
-    require_once("../modulos/programas/class/ClassProgramas.php");
-    require_once("../modulos/tipo_gastos/class/ClassTipodeGasto.php");
-    require_once("../modulos/plan_cuentas/class/ClassPlanCuentas.php");
+    
+  
+    // require_once("../modulos/tipo_gastos/class/ClassTipodeGasto.php");
+    // require_once("../modulos/plan_cuentas/class/ClassPlanCuentas.php");
     require_once("../modulos/conceptos_gastos/class/classConceptoGastos.php");
     require_once("../modulos/empleados/class/classEmpleados.php");
     require_once("../modulos/solicitud_gastos/class/ClassSolicitudGastos.php");
@@ -38,10 +38,10 @@
     if ($_POST) {
         $accion=$_GET['accion'];
         $InstanciaDB=new Conexion();
-        $InstUsuario=new Proceso_Usuario($InstanciaDB);
-        $InstPrograma=new Proceso_Programa($InstanciaDB);
-        $InstTipoGasto=new Proceso_TipoGastos($InstanciaDB);
-        $InstPlanCuentas=new Proceso_PlanCuentas($InstanciaDB);
+        // $InstUsuario=new Proceso_Usuario($InstanciaDB);
+      
+       
+        // $InstPlanCuentas=new Proceso_PlanCuentas($InstanciaDB);
         $InstConceptoGasto=new Proceso_ConceptoGastos($InstanciaDB);
         $InstEmpleados=new Proceso_Empleados($InstanciaDB);
         $InstSolicitudGasto= new Proceso_SolicitudGastos($InstanciaDB);
@@ -72,6 +72,8 @@
 
         switch ($accion) {
             case 'login':
+            require_once("../modulos/usuarios/class/ClassUsuario.php");
+            $InstUsuario=new Proceso_Usuario($InstanciaDB);
                     $EmailForm=limpiar($_POST['email']);
                     $ClaveForm=limpiar($_POST['pass']);
                     $LoginUser=$InstUsuario->BuscarLogin($EmailForm);
@@ -94,6 +96,8 @@
                     }
             break;
             case 'InsertPrograma':
+            require_once("../modulos/programas/class/ClassProgramas.php");
+            $InstPrograma=new Proceso_Programa($InstanciaDB);
                 $descPrograma=primera_mayuscula(limpiar($_POST['descPrograma']));
                 $estado=limpiar($_POST['estado']);
                 $codigoPrograma=texto_mayusculas(limpiar($_POST['codigoPrograma']));
@@ -111,6 +115,8 @@
                 }
             break;
             case 'EditPrograma':
+            require_once("../modulos/programas/class/ClassProgramas.php");
+            $InstPrograma=new Proceso_Programa($InstanciaDB);
                 $IdPrograma=limpiar($_POST['IdPrograma']);
                 $CodigoProgramaEditarFM=texto_mayusculas(limpiar($_POST['CodigoProgramaEdit']));
                 $DescProgramaEditarFM=primera_mayuscula(limpiar($_POST['DescProgramaEdit']));
@@ -149,6 +155,8 @@
                 }
             break;
             case 'InsertUsuario':
+            require_once("../modulos/usuarios/class/ClassUsuario.php");
+            $InstUsuario=new Proceso_Usuario($InstanciaDB);
                 $NombreUsuario=primera_mayuscula(limpiar($_POST['NombreUsuario']));
                 $EmailUsuario=limpiar($_POST['EmailUsuario']);
                 $EstadoUsuario=limpiar($_POST['EstadoUsuario']);
@@ -167,6 +175,8 @@
                 }
                 break;
             case 'EditUsuario':
+            require_once("../modulos/usuarios/class/ClassUsuario.php");
+            $InstUsuario=new Proceso_Usuario($InstanciaDB);
                 $IdUsuarioFM=limpiar($_POST['IdUsuarioFM']);
                 $EmailUsuarioFM=limpiar($_POST['EmailUsuarioFM']);
                 $NombreUsuarioEditFM=primera_mayuscula(limpiar($_POST['NombreUsuarioFM']));
@@ -181,6 +191,8 @@
             break;
 
             case 'InsertTipoGasto':
+            require_once("../modulos/tipo_gastos/class/ClassTipodeGasto.php");
+            $InstTipoGasto=new Proceso_TipoGastos($InstanciaDB);
                 $CodTipoGasto=texto_mayusculas(limpiar($_POST['CodTipoGasto']));
                 $DescTipoGasto=primera_mayuscula(limpiar($_POST['DescTipoGasto']));
                 $EstadoTipoGasto=limpiar($_POST['EstadoTipoGasto']);
@@ -198,6 +210,8 @@
                 }
             break;
             case 'EditTipoGasto':
+            require_once("../modulos/tipo_gastos/class/ClassTipodeGasto.php");
+            $InstTipoGasto=new Proceso_TipoGastos($InstanciaDB);
                 $IdTipoGastoFM=limpiar($_POST['IdTipoGastoFM']);
                 $CodigoTipoGastoFM=texto_mayusculas(limpiar($_POST['CodigoTipoGastoFM']));
                 $descTipoGastoFM=primera_mayuscula(limpiar($_POST['descTipoGastoFM']));
@@ -208,7 +222,7 @@
                 $diferenciaDescripcion=strcmp($descTipoGastoFM,$rowDB[2]);
                 $diferenciaEstado=strcmp($EstadoTipoGastoFM,$rowDB[3]);
                 $cambio=true;
-                if ($diferenciaCodigo==0 && $diferenciaDescripcion==0  && $diferenciaEstado==0 ) {
+                if ($diferenciaCodigo==0 || $diferenciaDescripcion==0  || $diferenciaEstado==0 ) {
                     echo 0;
                     $cambio=false;
                 } else {
@@ -236,6 +250,8 @@
                 }
             break;
             case 'InsertPlanCuentas':
+            require_once("../modulos/plan_cuentas/class/ClassPlanCuentas.php");
+            $InstPlanCuentas=new Proceso_PlanCuentas($InstanciaDB);
                 $CodPlanCuentas=texto_mayusculas(limpiar($_POST['CodPlanCuentas']));
                 $DescPlanCuentas=primera_mayuscula(limpiar($_POST['DescPlanCuentas']));
                 $EstadoPlanCuentas=limpiar($_POST['EstadoPlanCuentas']);
@@ -253,6 +269,8 @@
                 }
             break;
             case 'EditPlanCuentas':
+            require_once("../modulos/plan_cuentas/class/ClassPlanCuentas.php");
+            $InstPlanCuentas=new Proceso_PlanCuentas($InstanciaDB);
                 $IdPlanCuentasFM=limpiar($_POST['IdPlanCuentasFM']);
                 $CodigoPlanCuentasFM=texto_mayusculas(limpiar($_POST['CodigoPlanCuentasFM']));
                 $descPlanCuentasFM=primera_mayuscula(limpiar($_POST['descPlanCuentasFM']));
@@ -263,7 +281,7 @@
                 $diferenciaDescripcion=strcmp($descPlanCuentasFM,$rowDB[2]);
                 $diferenciaEstado=strcmp($EstadoPlanCuentasFM,$rowDB[3]);
                 $cambio=true;
-                if ($diferenciaCodigo==0 && $diferenciaDescripcion==0  && $diferenciaEstado==0 ) {
+                if ($diferenciaCodigo==0 || $diferenciaDescripcion==0  || $diferenciaEstado==0 ) {
                     echo 0;
                     $cambio=false;
                 } else {
