@@ -35,7 +35,6 @@ class Proceso_Institucion{
 			INNER JOIN tipoinstitucion ON institucion.idTipoInstitucion=tipoinstitucion.idTipoInstitucion
 			INNER JOIN vereda ON vereda.idVereda=institucion.idVereda
 			INNER JOIN municipio ON  municipio.idMunicipio=vereda.Municipio_idMunicipio";
-
 		$this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
 		return $this->resultado;
 	}

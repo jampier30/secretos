@@ -29,6 +29,12 @@
                             <a href="../empleados/indexEmpleados.php"> Empleados</a>
                         </li>
                         <li>
+                            <a href="../area/indexArea.php"> Area</a>
+                        </li>
+                        <li>
+                            <a href="../alumnos/indexAlumnos.php"> Alumnos</a>
+                        </li>
+                        <li>
                             <a href="../actividades/indexActividades.php"> Actividades</a>
                         </li>
                         <li>
@@ -98,9 +104,6 @@
                             <a href="../colecciones/indexColecciones.php"> Colecciones</a>
                         </li>
                         <li>
-                            <a href="../colecciones/indexColecciones.php"> Colecciones</a>
-                        </li>
-                        <li>
                             <a href="../tipo_tarifas/indexTipoTarifa.php"> Tipo Tarifa</a>
                         </li>																	
                     </ul>
@@ -113,6 +116,9 @@
                         </li>
                         <li>
                             <a href="../legalizacionSolicGasto/indexlegalizacionSolicGasto.php"> Legalizar Gastos</a>
+                        </li>
+                        <li>
+                            <a href="../relaciongastos/indexRelacionGastos.php"> Relacionar Gastos</a>
                         </li>
                         <li>
                             <a href="#"> Asignacion de Donantes</a>
@@ -130,7 +136,7 @@
                             <a href="#"> Registro Entrega Colecciones</a>
                         </li>	  
                         <li>
-                            <a href="#"> Entrega Anteojos</a>
+                            <a href="../entregaAnteojos/indexEntregaAnteojos.php"> Entrega Anteojos</a>
                         </li>	
                         <li>
                             <a href="#"> Encuesta Infraestructura</a>

@@ -52,7 +52,6 @@ function EditPrograma(){
   return;
 }
 
-
 function EditarUsuario() {  
   var IdUsuarioFM=$('#IdUsuarioFM').val();
   var NombreUsuarioFM=$('#NombreUsuariof').val();
@@ -163,7 +162,6 @@ function formeditUsuario(datoUsuario){
     $('#NombreEntidadesFM').val(deditI[2]);
   }
 
-  
   function formeditProyecto(datoPrograma){
     deditI=datoPrograma.split('||');
     $('#IdProyectoFM').val(deditI[0]);
@@ -203,7 +201,6 @@ function formeditUsuario(datoUsuario){
       $('#idTipoMunicipioMI').html(deditI[9]);
   }
 
-   
   function formeditContacto(datoPrograma){
     deditI=datoPrograma.split('||');
       $('#idContactoFM').val(deditI[0]);
@@ -228,16 +225,7 @@ function formeditUsuario(datoUsuario){
     $("#idVeredaFM option[value="+ deditI[4] +"]").attr("selected",true);
   }
 
-
   // Javier Octubre 25
-
-
-  function formeditdpto(datoPrograma){
-    deditI=datoPrograma.split('||');
-    $('#idDptoFM').val(deditI[0]);
-    $('#CodDANEDptoFM').val(deditI[1]);
-    $('#DescDptoFM').val(deditI[2]);
-  }
 
   function formeditRegion(datoPrograma){
     deditI=datoPrograma.split('||');
@@ -291,8 +279,7 @@ function formeditUsuario(datoUsuario){
     $('#descTipoMaterialFM').val(deditI[1]);
   }
 
-
-  //
+  // Modulo usuario
   
   function InsertUsuario() {
     var NombreUsuario=$('#NombreUsuario').val();
@@ -323,7 +310,6 @@ function formeditUsuario(datoUsuario){
     }
     $("#msgUsuarioNuevo").delay(3000).fadeOut(300);
   }
-
 
   function InsertPrograma(){
     var codigoPrograma=$('#codigoprograma').val();
@@ -384,7 +370,6 @@ function formeditUsuario(datoUsuario){
     $("#msgTipoGastoNuevo").delay(3000).fadeOut(300);
   }
 
-
   function EditarTipoGastoFM(){
     var IdTipoGastoFM=$('#IdTipoGastoFM').val();
     var CodigoTipoGastoFM = $('#CodigoTipoGastoFM').val();
@@ -415,7 +400,6 @@ function formeditUsuario(datoUsuario){
   $("#msgEditTipoGastoFM").delay(3000).fadeOut(300);
   return;
 }
-
 
 // Insertar nueva Cuenta Contable en Plan de Cuentas
 function InsertPLanCuenta(){
@@ -477,7 +461,6 @@ function EditarPlanCuentasFM(){
 $("#msgEditTipoGastoFM").delay(3000).fadeOut(300);
 return;
 }
-
 
 // Proceso Insertar Concepto de Gasto
 function InsertConceptoGasto(){
@@ -547,7 +530,6 @@ $("#msgEditConceptoGasto").delay(3000).fadeOut(300);
 return;
 }
 
-
 function insertarDpto(){
   var codDaneDpto= $('#codDANEDpto').val();
   var descripDpto=$('#descripDpto').val();
@@ -572,7 +554,6 @@ function insertarDpto(){
     });
   }
 }
-
 
 function InsertTipoMaterial() {
   
@@ -603,7 +584,6 @@ function InsertTipoMaterial() {
   $("#msgTipoMaterialNuevo").delay(3000).fadeOut(300);
 }
 
-
 function EditarTipoMaterialFM(){
   var IdTipoMaterialFM=$('#IdTipoMaterialFM').val();
   var descTipoMaterialFM = $('#descTipoMaterialFM').val();
@@ -632,7 +612,6 @@ function EditarTipoMaterialFM(){
 $("#msgEditTipoMaterialFM").delay(3000).fadeOut(300);
 return;
 }
-
 
 function InsertTipoNovedadesPlan() {
   
@@ -663,7 +642,6 @@ function InsertTipoNovedadesPlan() {
   $("#msgTipoNovedadesPlanNuevo").delay(3000).fadeOut(300);
 }
 
-
 function EditarTipoNovedadesPlanFM(){
   var IdTipoNovedadesPlanFM=$('#IdTipoNovedadesPlanFM').val();
   var descTipoNovedadesPlanFM = $('#descTipoNovedadesPlanFM').val();
@@ -692,7 +670,6 @@ function EditarTipoNovedadesPlanFM(){
 $("#msgEditTipoNovedadesPlanFM").delay(3000).fadeOut(300);
 return;
 }
-
 
 function InsertCentroCostosP() {
   var CodCentroCostosP=$('#CodCentroCostosP').val();
@@ -785,7 +762,6 @@ $("#msgCentroCostosHNuevo").delay(3000).fadeOut(300);
 return;
 }
 
-
 function EditarCentroCostosHFM(){
   var IdCentroCostosHFM=$('#IdCentroCostosHFM').val();
   var CodigoCentroCostosHFM = $('#CodigoCentroCostosHFM').val();
@@ -816,7 +792,6 @@ function EditarCentroCostosHFM(){
 $("#msgEditCentroCostosHFM").delay(3000).fadeOut(300);
 return;
 }
-
 
 function InsertEntidades(){
   var NitEntidad=$('#NitEntidad').val();
@@ -879,7 +854,6 @@ $("#msgEditEntidadesFM").delay(3000).fadeOut(300);
 return;
 }
 
-
 function InsertProyecto(){
   var DescProyecto=$('#DescProyecto').val();
   var idCentrodeCostosHijo = $('#idCentrodeCostosHijo').val();
@@ -910,7 +884,6 @@ function InsertProyecto(){
 $("#msgProyectoNuevo").delay(3000).fadeOut(300);
 return;
 }
-
 
 function EditarProyectoFM(){
   var IdProyectoFM=$('#IdProyectoFM').val();
@@ -973,7 +946,6 @@ function InsertDotaciones() {
   $("#msgDotacionesNuevo").delay(3000).fadeOut(300);
 }
 
-
 function EditarDotacionesFM(){
   var IdDotacionesFM=$('#IdDotacionesFM').val();
   var descDotacionesFM = $('#descDotacionesFM').val();
@@ -1003,12 +975,8 @@ $("#msgEditDotacionesFM").delay(3000).fadeOut(300);
 return;
 }
 
-
-
 function InsertFuentes() {
-  
-  var DescFuentes=$('#DescFuentes').val();
-  
+  var DescFuentes=$('#DescFuentes').val(); 
   if (DescFuentes === "") {
     $("#msgFuentesNuevo").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos 'Nombre, Correo y Clave' son obligatorios</div>");
   } else {
@@ -1033,7 +1001,6 @@ function InsertFuentes() {
   }
   $("#msgFuentesNuevo").delay(3000).fadeOut(300);
 }
-
 
 function EditarFuentesFM(){
   var IdFuentesFM=$('#IdFuentesFM').val();
@@ -1064,11 +1031,8 @@ $("#msgEditFuentesFM").delay(3000).fadeOut(300);
 return;
 }
 
-
 function InsertClasificacionC() {
-  
   var DescClasificacionC=$('#DescClasificacionC').val();
-  
   if (DescClasificacionC === "") {
     $("#msgClasificacionCNuevo").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos 'Nombre, Correo y Clave' son obligatorios</div>");
   } else {
@@ -1093,7 +1057,6 @@ function InsertClasificacionC() {
   }
   $("#msgClasificacionCNuevo").delay(3000).fadeOut(300);
 }
-
 
 function EditarClasificacionCFM(){
   var IdClasificacionCFM=$('#IdClasificacionCFM').val();
@@ -1123,7 +1086,6 @@ function EditarClasificacionCFM(){
 $("#msgEditClasificacionCFM").delay(3000).fadeOut(300);
 return;
 }
-
 
 function InsertContacto() {
   var Nombre=$('#Nombre').val();
@@ -1159,7 +1121,6 @@ function InsertContacto() {
   }
   $("#msgContactoNuevo").delay(3000).fadeOut(300);
 }
-
 
 function EditarContactoFM(){
   var idContactoFM=$('#idContactoFM').val();
@@ -1198,8 +1159,7 @@ $("#msgEditContactoFM").delay(3000).fadeOut(300);
 return;
 }
 
-InsertInstitucion
-
+// Modulo Institucion
 function InsertInstitucion(){
   var CodDaneInstitucion=$('#CodDaneInstitucion').val();
   var NombreInstitucion = $('#NombreInstitucion').val();
@@ -1230,8 +1190,6 @@ function InsertInstitucion(){
 $("#msgInstitucionNuevo").delay(3000).fadeOut(300);
 return;
 }
-
-
 
 function EditarInstitucionFM(){
   var idInstitucionFM=$('#idInstitucionFM').val();
@@ -1264,6 +1222,13 @@ function EditarInstitucionFM(){
 }
 $("#msgEditInstitucion").delay(3000).fadeOut(300);
 return;
+}
+//Modulo departamento
+function formeditdpto(datoPrograma){
+  deditI=datoPrograma.split('||');
+  $('#idDptoFM').val(deditI[0]);
+  $('#CodDANEDptoFM').val(deditI[1]);
+  $('#DescDptoFM').val(deditI[2]);
 }
 
 function EditarDpto(){
@@ -1410,7 +1375,6 @@ function EditarTipoMcpio(){
 $("#msgEditTipoMcpio").delay(3000).fadeOut(300);
 return;
 }
-
 
 // Modulo de region municipio -->
 function InsertRegion(){
@@ -1878,7 +1842,6 @@ $("#msgEditVereda").delay(3000).fadeOut(300);
 return;
 }
 
-
 // Modulo de Municipio -->
 function formeditMunicipio(datoPrograma){
   deditI=datoPrograma.split('||');
@@ -1956,7 +1919,7 @@ $("#msgEditMunicipio").delay(3000).fadeOut(300);
 return;
 }
 
-
+//Modulo solicitud de gasto
 function guardarSolicitudGasto(){
   var IdSolicitudGastoSG=$('#IdSolicitudGastoSG').text();
   var fecha=$('#fecha').text();
@@ -2000,13 +1963,12 @@ function guardarSolicitudGasto(){
 
 function VerSolicitudGasto(datoPrograma,datoresponsables){
   var texto;  
-  deditI=datoPrograma.split('||');
-
+    deditI=datoPrograma.split('||');
+    $('#VerLegalizacionSG').hide();
     if (deditI[11]==0) {
       texto='<button Title="Legalizar Gasto" type="button" class="btn-default btn" onclick="LegalizarSolicitudGasto();"><span class="glyphicon glyphicon-arrow-right" style="color:green;"></span> <span style="color:green;">$</span></button>';
-      
     } else {
-      texto='<button Title="Legalizar Gasto" type="button"class="btn-default btn" onclick="RelacionarSolicitudGasto();"><span class="glyphicon glyphicon-arrow-right" style="color:rgb(255, 128, 0);"></span> <span class="glyphicon glyphicon-new-window" style="color:rgb(255, 128, 0);"></span></button>';
+      texto='<button Title="Ver Legalizacion" type="button" class="btn-default btn" onclick="ShowVerLegalizacionSolicitudGasto();"><span style="color:green;">$</span></button><button Title="Legalizar Gasto" type="button"class="btn-default btn" onclick="RelacionarSolicitudGasto();"><span class="glyphicon glyphicon-arrow-right" style="color:rgb(255, 128, 0);"></span> <span class="glyphicon glyphicon-new-window" style="color:rgb(255, 128, 0);"></span></button>';
     }
 
     $('#msgBotonAccionSG').html(texto);
@@ -2045,8 +2007,74 @@ function VerSolicitudGasto(datoPrograma,datoresponsables){
       disabled: true
     });
     mostrarDetalleSG();
+    mostrarLegalizacionSolicitudGasto(deditI[0]);   
+}
 
+function CargarResponsablesenSelect2(IdSG){
+  var params = {IdSG};
+    var url = "../../logica/logica.php?accion=CargarResponsablesSelect2";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+        $('#VerresponsableSGdiv2').val(result);
+        $('#VerresponsableSGdiv2').trigger('change');
+        $('#VerresponsableSGdiv2').select2({
+          disabled: true
+        });
+    });
 
+}
+
+function mostrarLegalizacionSolicitudGasto(idSG){
+    var params = {idSG};
+    var url = "../../logica/logica.php?accion=BuscarLegalizacionSG";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      var 
+            texto='<div class="col-md-6 col-sm-6 col-xs-6">';
+              texto+='<div class="panel panel-default">';
+                  texto+='<divclass="panel-heading clearfix">';
+                      texto+='<h3 class="panel-title">Detalle Legalizacion </h3> - # '+result[1];
+                      texto='<div id="close">';
+                      texto+='<button Title="Cerrar" type="button" class="btn-default btn" onclick="HideVerLegalizacionSolicitudGasto();">cerrar</button>';
+                      texto+='</div>';
+                  texto+='</div>';
+                  texto+='<div class="panel-body">'
+                    texto+='<table class="table table-hover">';
+                      texto+='<tbody>';
+                        texto+='<tr class="table-light">';
+                          texto+='<th scope="row">Id Doc Legalizacion</th>';
+                          texto+='<td><div>'+result[0]+'</div></td>';
+                        texto+='</tr>';
+                        texto+='<tr class="table-light">';
+                          texto+='<th scope="row">Fecha Documento</th>';
+                          texto+='<td><div>'+result[2]+'</div></td>';
+                        texto+='</tr>';
+                        texto+='<tr class="table-light">';
+                          texto+='<th scope="row">Usuario</th>';
+                          texto+='<td><div>'+result[3]+'</div></td>';
+                        texto+='</tr>';
+                        texto+='<tr class="table-light">';
+                          texto+='<th scope="row">Valor Legalizado</th>';
+                          texto+='<td><div>$ '+formatNumber.new(result[4])+'</div></td>';
+                        texto+='</tr>';
+                      texto+='</tbody>';
+                    texto+='</table> ';
+                  texto+='</div>';
+              texto+='</div>';
+          texto+='</div>';
+      texto+='</div>';
+      $('#VerLegalizacionSG').html(texto);
+    });
 }
 
 var formatNumber = {
@@ -2068,7 +2096,6 @@ var formatNumber = {
   return this.formatear(num);
   }
  }
-
 
 function formeditTipoNovMater(datoPrograma){
   deditI=datoPrograma.split('||');
@@ -2130,57 +2157,708 @@ $("#msgEditTipoNovMater").delay(3000).fadeOut(300);
 return;
 }
 
+function MostrarSolicitudGastoxid() {
+  $('#IdSolicitudGastoSG').change(function(){    
+    var IdSG = $("#IdSolicitudGastoSG option:selected").val();
+    var params = {IdSG};
+    var url = "../../logica/logica.php?accion=getSolcitudGastoxLegalizar";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      console.log("id:"+result[0]);
+      console.log("Valor: "+result[12]);          
+    });
+
+  })
+}
+
 //Modulo legalizacion solicitud Gasto
 
-      function formeditLegalizSolicGasto(datoPrograma){
-        deditI=datoPrograma.split('||');
-        $('#IdSolicitudGastoSG').val(deditI[0]);
+function guardarLegalizSolicitudGasto(){
+  var IdSolicitudGastoSG=$('#IdSolicitudGastoSG2').val();
+  var FechaLegalizSG=$("#fecha").text();
+  var responsableSG=$('#responsableSG2').val();
+  var VrLegSolicGastoSG=$('#VrLegSolicGastoSG').val();
+  if (IdSolicitudGastoSG==0 || FechaLegalizSG==0 || responsableSG==0||VrLegSolicGastoSG==0) {
+    $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  } else {
+    var params = {IdSolicitudGastoSG,FechaLegalizSG,responsableSG,VrLegSolicGastoSG};
+    var url = "../../logica/logica.php?accion=InsertarLegalizSolicitudGasto";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
+        location.reload();
+      } else if (result == 3) {
+        $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
       }
-
-      function guardarLegalizSolicitudGasto(){
-        var IdSolicitudGastoSG=$('#IdSolicitudGastoSG').val();
-        var FechaLegalizSG=$("#fecha").text();
-        var responsableSG=$('#responsableSG2').val();
-        console.log(responsableSG);
-        var VrLegSolicGastoSG=$('#VrLegSolicGastoSG').val();
-        
-        if (IdSolicitudGastoSG==0 || FechaLegalizSG==0 || responsableSG==0||VrLegSolicGastoSG==0) {
-          $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
-        } else {
-          var params = {IdSolicitudGastoSG,FechaLegalizSG,responsableSG,VrLegSolicGastoSG};
-          var url = "../../logica/logica.php?accion=InsertarLegalizSolicitudGasto";
-          $.ajax({
-            url: url,
-            type: 'POST',
-            cache: false,
-            dataType: 'json',
-            data: params,
-          }).done(function(result) {
-            if(result == 1){
-              $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
-              location.reload();
-            } else if (result == 3) {
-              $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
-            } else {
-              $("#msgLegalizSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
-            }
-          });
-        }
-        $("#msgLegalizSolicitudGasto").delay(3000).fadeOut(300);
-        return;
-      }
+    });
+  }
+  $("#msgLegalizSolicitudGasto").delay(3000).fadeOut(300);
+  return;
+}
 
 function LegalizarSolicitudGasto(datoPrograma){
-  deditI=datoPrograma.split('||');
-  
-  $('#IdSolicitudGastoSG option[value='+ deditI[0] +']').attr('selected',true);
+  deditI=datoPrograma.split('||'); 
+  $('#NuevaLegalizSolicitudGasto').modal('show');
+  $('#IdSolicitudGastoSG2 option[value='+ deditI[0] +']').attr('selected',true);
   $('#idTipoNovMaterFM').val(deditI[0]);
   $('#descTipoNovMaterFM').val(deditI[1]);
 }
- 
 
+function formeditLegalizSolicGasto(datoPrograma){
+  deditI=datoPrograma.split('||');
+  $('#idLegalizFM').val(deditI[0]);
+  $('#idSolicGastoFM').val(deditI[1]);
+  $('#FechaLegalizFM').val(deditI[2]);
+  $('#UsuarioLegFM').val(deditI[3]);
+  $('#ValorLEgalizFM').val(deditI[4]);
+}
 
+function EditarLegaliz(){
+  var IdLegalizacion=$('#idLegalizFM').val();
+  var IdSolicitud=$('#idSolicGastoFM').val();
+  var FechaLegaliz = $('#FechaLegalizFM').val();
+  var usuarioLegaliz=$('#UsuarioLegFM').val();
+  var valorLegaliz = $('#ValorLEgalizFM').val();
+  if (valorLegaliz==="") {
+    $("#msgLegalizEdit").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  } else {
+    var params = {IdLegalizacion,IdSolicitud,FechaLegaliz,usuarioLegaliz,valorLegaliz};
+    var url = "../../logica/logica.php?accion=EditarLegalizacion";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgLegalizEdit").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
+        location.reload(); 
+      } else if (result == 3) {
+        $("#msgLegalizEdit").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgLegalizEdit").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
+      }
+    });
+}
+$("#msgLegalizEdit").delay(3000).fadeOut(300);
+return;
+}
 
+function mostrarCABSG(IdSG,IdRG) {
+  var parametros={IdSG};
+  $("#CabSG").show();
+  $.ajax({
+      url:'../../logica/logica.php?accion=ListarCABSG',
+      type: "POST",
+      data: parametros,
+      cache: false,
+      dataType: 'json',
+      beforeSend: function(objeto){
+        $('#CabSG').html('Cargando...');
+      },
+      success: function(data){
+          $().html();
+          texto=`<div class="table-responsive">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <h2 class="panel-title"><b>Relacion de Gastos - #  <div id="IdRG">`+IdRG+`</div></b></h2> 
+                        Solicitud de Gasto: <label id="IdSG">`+data[0]+`</label> - Fecha elaboracion: `+data[1]+` - Usuario creacion: ?? 
+                    </div>
+                    <div class="panel-body">
+                        <div class="row col-md-6 col-sm-6">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr class="table-light">
+                                        <th scope="row" style="width:100px">Municipio</th>
+                                        <td><div name="VerCodMunicipioSGdiv" id="VerCodMunicipioSGdiv">`+data[13]+`</div></td>
+                                    </tr>                                 
+                                    <tr class="table-light">
+                                        <th scope="row">Entidades</th>
+                                        <td><div name="VerCodEntidadSGdiv" id="VerCodEntidadSGdiv">`+data[14]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Proyecto</th>
+                                        <td><div name="VerCodProyectoSGdiv" id="VerCodProyectoSGdiv">`+data[15]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Proceso</th>
+                                        <td><div name="VerCodProcesoSGdiv" id="VerCodProcesoSGdiv">`+data[16]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Actividad</th>
+                                        <td><div name="VerCodActividadSGdiv" id="VerCodActividadSGdiv">`+data[17]+`</div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row col-md-6 col-sm-6">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr class="table-light">
+                                        <th scope="row" style="width:170px">Fecha/Hora Salida</th>
+                                        <td><div name="VerFechaHoraSalidaSGdiv" id="VerFechaHoraSalidaSGdiv">`+data[7]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Fecha/Hora Regreso</th>
+                                        <td><div name="VerFechaHoraRegresoSGdiv" id="VerFechaHoraRegresoSGdiv">`+data[8]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Cant Colección</th>
+                                        <td><div name="VerCantColeccionSGdiv" id="VerCantColeccionSGdiv">`+data[9]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Tipo Colección</th>
+                                        <td><div name="VerTipoColeccionSGdiv" id="VerTipoColeccionSGdiv"></div>`+data[10]+`</td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Valor Legalizado</th>
+                                        <td><div name="VerTipoColeccionSGdiv" id="VerTipoColeccionSGdiv"></div> $ `+formatNumber.new(data[18])+`</td>
+                                    </tr>       
+                                </tbody>
+                            </table> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        $('#CabSG').html(texto);
+      }
+  });
+}
 
+function upload_image(IdRG,IdDetalleSG){
+  $(".upload-msg").text('Cargando...');
+  var inputFileImage = document.getElementById("fileToUpload");
+  var file = inputFileImage.files[0];
+  var data = new FormData();
+  var parametros={data,IdRG,IdDetalleSG};
+  data.append('fileToUpload',file);
+  $.ajax({
+    url: "../../logica/logica.php?accion=uploadimagen",        
+    type: "POST",             
+    data: parametros, 			  
+    contentType: false,       
+    cache: false,             
+    processData:false,       
+    success: function(data)
+    {
+      $(".upload-msg").html(data);
+      window.setTimeout(function() {
+      $(".alert-dismissible").fadeTo(500, 0).slideUp(500, function(){
+      $(this).remove();
+      });	}, 5000);
+    }
+  });
+}
 
+function guardarNuevaRelacionSG(IdSG) {
+  var IdSG=IdSG;
+  var UsuarioRelacionGastos=$('#VerresponsableSGdiv').val();
+  var ObservacionesRelacionGasto=$('#ObservacioneRelacionSGdiv').val();
+  var FechaRelacionGastos=$('#fecha').text();
 
+  var inputFileImage = document.getElementById("fileToUpload");
+  var file = inputFileImage.files[0];
+  var data = new FormData();
+  data.append('fileToUpload',file);
+  
+  var parametros={data,IdSG,FechaRelacionGastos,UsuarioRelacionGastos,ObservacionesRelacionGasto};
+    $.ajax({
+      url:'../../logica/logica.php?accion=GuardarRelacionSG',
+      type: "POST",
+      data: parametros,
+      cache: false,
+      dataType: 'json',     
+        success: function(data)
+        {
+          $('#DocumentoSG').show();
+          mostrarDetalleSGRelacion(IdSG);
+          mostrarCABSG(IdSG,data);
+          CargarResponsablesenSelect2(IdSG);
+          $('#ConceptoGastoRelacion').html(data);
+        }
+      });
+  }
+
+  function mostrarDetalleSGRelacion(IdSG) {
+    var parametros={IdSG};
+    $.ajax({
+        url:'../../logica/logica.php?accion=ListarDetalleSGRelacion',
+        type: "POST",
+        data: parametros,
+        beforeSend: function(objeto){
+     $('#ListaDetalleSGRelacion').html('Cargando...');
+  },success: function(data){
+    console.log(data);
+            $("#ListaDetalleSGRelacion").html(data).fadeIn('slow');
+    }
+    });
+}
+
+function ResumenenModalRelacion(NombreConcepto,valordias,valorconcepto){
+  var dato;
+  dato=`
+  <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+    <thead>
+      <th>Nombre Concepto</th>
+      <th>Dias</th>
+      <th>Valor Concepto</th>
+      <th>Total</th>
+    </thead>
+    <tbody>
+      <tr class="odd gradeX">
+        <td>`+NombreConcepto+`</td>
+        <td class="text-center">`+valordias+`</td>
+        <td  class="text-right"> $`+formatNumber.new(valorconcepto)+`</td>
+        <td  class="text-right"> $`+formatNumber.new(valordias*valorconcepto)+`</td>
+      </tr>
+    </tbody>
+  </table>
+  `;
+
+  $('#ResumenSG').html(dato);
+}
+
+function GuardarDetalleRelacion() { 
+var IdRG=$('#IdRG').text();
+var IdDetalleSG=$('#IdDetalleSG').text();
+var NitBeneficiario=$('#NitBeneficiario').val();
+var NombreBeneficiario=$('#NombreBeneficiario').val();
+var NumeroFactura=$('#NumeroFactura').val();
+var ValorFactura=$('#ValorFactura').val();
+var PagoTCD=$('#PagoTCD').val();
+var Observaciones=$('#Observaciones').val();
+var fileToUpload=$('#fileToUpload').val();
+upload_image(IdRG,IdDetalleSG);
+if (NitBeneficiario=="" || NombreBeneficiario=="" || NumeroFactura=="" || ValorFactura=="" || Observaciones=="" || fileToUpload=="") {
+  $("#msgRelacionSolicitudGasto").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+} else {
+    if (PagoTCD=='on') {
+      PagoTCD=1;
+    }else{
+      PagoTCD=0;
+    }
+  var parametros={IdRG,IdDetalleSG,NitBeneficiario,NombreBeneficiario,NumeroFactura,ValorFactura,PagoTCD,Observaciones,fileToUpload};
+  console.log(parametros);
+  $.ajax({
+    url:'../../logica/logica.php?accion=GuardarDetalleRelacion',
+    type: "POST",
+    data: parametros
+    ,success: function(data){
+  console.log(data);
+        $("#ListaDetalleSGRelacion").html(data).fadeIn('slow');
+  }
+  });
+}
+$("#msgRelacionSolicitudGasto").delay(3000).fadeOut(300);
+  return;
+}
+
+function mostrarCABSGLegaliz(IdSG) {
+  var parametros={IdSG};
+  $("#CabSG").show();
+  console.log(parametros);
+  $.ajax({
+      url:'../../logica/logica.php?accion=ListarCABSG',
+      type: "POST",
+      data: parametros,
+      cache: false,
+      dataType: 'json',
+      success: function(data){
+          texto=`<div class="table-responsive">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+            
+                        Solicitud de Gasto: <label id="IdSG">`+data[0]+`</label> - Fecha elaboracion: `+data[1]+` - Usuario creacion: ?? 
+                    </div>
+                    <div class="panel-body">
+                        <div class="row col-md-6 col-sm-6">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr class="table-light">
+                                        <th scope="row" style="width:100px">Municipio</th>
+                                        <td><div name="VerCodMunicipioSGdiv" id="VerCodMunicipioSGdiv">`+data[13]+`</div></td>
+                                    </tr>                                 
+                                    <tr class="table-light">
+                                        <th scope="row">Entidades</th>
+                                        <td><div name="VerCodEntidadSGdiv" id="VerCodEntidadSGdiv">`+data[14]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Proyecto</th>
+                                        <td><div name="VerCodProyectoSGdiv" id="VerCodProyectoSGdiv">`+data[15]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Proceso</th>
+                                        <td><div name="VerCodProcesoSGdiv" id="VerCodProcesoSGdiv">`+data[16]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Actividad</th>
+                                        <td><div name="VerCodActividadSGdiv" id="VerCodActividadSGdiv">`+data[17]+`</div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row col-md-6 col-sm-6">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr class="table-light">
+                                        <th scope="row" style="width:170px">Fecha/Hora Salida</th>
+                                        <td><div name="VerFechaHoraSalidaSGdiv" id="VerFechaHoraSalidaSGdiv">`+data[7]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Fecha/Hora Regreso</th>
+                                        <td><div name="VerFechaHoraRegresoSGdiv" id="VerFechaHoraRegresoSGdiv">`+data[8]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Cant Colección</th>
+                                        <td><div name="VerCantColeccionSGdiv" id="VerCantColeccionSGdiv">`+data[9]+`</div></td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Tipo Colección</th>
+                                        <td><div name="VerTipoColeccionSGdiv" id="VerTipoColeccionSGdiv"></div>`+data[10]+`</td>
+                                    </tr>
+                                    <tr class="table-light">
+                                        <th scope="row">Valor Legalizado</th>
+                                        <td><div name="VerTipoColeccionSGdiv" id="VerTipoColeccionSGdiv"></div> $ `+formatNumber.new(data[12])+`</td>
+                                    </tr>       
+                                </tbody>
+                            </table> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+        $('#CabSG').html(texto);
+      }
+  });
+}
+
+// Modulo de Alumno -->
+function formeditAlumno(datoPrograma){
+  deditI=datoPrograma.split('||');
+  $('#IdAlumnoFM').val(deditI[0]);
+  $('#codAlumnoFM').val(deditI[1]);
+  $('#descAlumnoFM').val(deditI[2]);
+  $('#estadoFM').val(deditI[3]);
+  $('#edadFM').val(deditI[4]);
+  $("#IdInstitucFM option[value="+ deditI[5]+"]").attr("selected", true);
+
+}
+
+function InsertAlumno(){
+  var codAlumno=$('#codAlumno').val();
+  var descAlumno=$('#descAlumno').val();
+  var estado=$('#estado').val();
+  var edad=$('#edad').val();
+  var IdInstituc=$('#IdInstitucion').val();
+  if(codAlumno==""||descAlumno==""||estado==""||edad==""||IdInstituc==""){
+    $("#msgEmpleado").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  }else{
+    var parametros={codAlumno,descAlumno,estado,edad,IdInstituc};
+    $.ajax({
+      url: "../../logica/logica.php?accion=InsertAlumno",
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: parametros,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgAlumno").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Guardado con Exito !!</strong></div>");
+        location.reload(); 
+      } else if (result == 3) {
+        $("#msgAlumno").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgAlumno").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No fue posible insertar el dato, por favor comuniquese con soporte tecnico.</div>");
+      }
+    });
+  }
+}
+
+function EditarAlumno(){
+  var IdAlumno=$('#IdAlumnoFM').val();
+  var codAlumno=$('#codAlumnoFM').val();
+  var nombAlumno=$('#descAlumnoFM').val();
+  var estAlumno=$('#estadoFM').val();
+  var edadAlumno=$('#edadFM').val();
+  var idInstitucion=$('#IdInstitucFM').val();
+
+  if (codAlumno==""||nombAlumno==""||estAlumno==""||edadAlumno==""||idInstitucion=="") {
+    $("#msgEditAlumno").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  } else {
+    var params = {IdAlumno,codAlumno,nombAlumno,estAlumno,edadAlumno,idInstitucion};
+    var url = "../../logica/logica.php?accion=EditarAlumno";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgEditAlumno").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
+        location.reload(); 
+      } else if (result == 3) {
+        $("#msgEditAlumno").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgEditAlumno").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
+      }
+    });
+}
+$("#msgEditAlumno").delay(3000).fadeOut(300);
+return;
+}
+
+// Modulo de Empleado -->
+function formeditEmpleado(datoPrograma){
+  deditI=datoPrograma.split('||');
+  $('#IdEmpleadoFM').val(deditI[0]);
+  $('#DocEmpleadoFM').val(deditI[1]);
+  $('#nomEmpleadoFM').val(deditI[2]);
+  $('#telEmpleadoFM').val(deditI[3]);
+  $('#cargoEmplFM').val(deditI[4]);
+  $("#idAreaFM option[value="+ deditI[5]+"]").attr("selected", true);
+  $('#estadoEmpleFM').val(deditI[6]);
+  $("#idUsuarioEmplFM option[value="+ deditI[7]+"]").attr("selected", true);
+}
+
+function InsertEmpleado(){
+  var DocEmpleado=$('#DocEmpleado').val();
+  var nomEmpleado=$('#nomEmpleado').val();
+  var telEmpleado=$('#telEmpleado').val();
+  var cargoEmpl=$('#cargoEmpl').val();
+  var idArea=$('#idArea').val();
+  var estadoEmple=$('#estadoEmple').val();
+  var idUsuarioEmpl=$('#idUsuarioEmpl').val();
+  if(DocEmpleado==""||nomEmpleado==""||telEmpleado==""||cargoEmpl==""||idArea==""||estadoEmple==""||idUsuarioEmpl==""){
+    $("#msgEmpleado").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  }else{
+    var parametros={DocEmpleado,nomEmpleado,telEmpleado,cargoEmpl,idArea,estadoEmple,idUsuarioEmpl};
+    $.ajax({
+      url: "../../logica/logica.php?accion=InsertEmpleado",
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: parametros,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgEmpleado").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Guardado con Exito !!</strong></div>");
+        location.reload(); 
+      } else if (result == 3) {
+        $("#msgEmpleado").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgEmpleado").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No fue posible insertar el dato, por favor comuniquese con soporte tecnico.</div>");
+      }
+    });
+  }
+}
+
+function EditarEmpleado(){
+  var idEmpleado=$('#IdEmpleadoFM').val();
+  var DocEmpleado=$('#DocEmpleadoFM').val();
+  var nomEmpleado=$('#nomEmpleadoFM').val();
+  var telEmpleado=$('#telEmpleadoFM').val();
+  var cargoEmpl=$('#cargoEmplFM').val();
+  var idArea=$('#idAreaFM').val();
+  var estadoEmple=$('#estadoEmpleFM').val();
+  var idUsuarioEmpl=$('#idUsuarioEmplFM').val();
+
+  if(DocEmpleado==""||nomEmpleado==""||telEmpleado==""||cargoEmpl==""||idArea==""||estadoEmple==""||idUsuarioEmpl==""){
+    $("#msgEditEmpleado").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  } else {
+    var params = {idEmpleado,DocEmpleado,nomEmpleado,telEmpleado,cargoEmpl,idArea,estadoEmple,idUsuarioEmpl};
+    var url = "../../logica/logica.php?accion=EditarEmpleado";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgEditEmpleado").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
+        location.reload(); 
+      } else if (result == 3) {
+        $("#msgEditEmpleado").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgEditEmpleado").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
+      }
+    });
+}
+$("#msgEditEmpleado").delay(3000).fadeOut(300);
+return;
+}
+
+//Modulo de Area
+function InsertArea(){
+  var descArea=$('#descArea').val();
+  var estadoarea=$('#estadoarea').val();
+  if(descArea=="" || estadoarea==""){
+    $("#msgArea").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  }else{
+    var parametros={descArea,estadoarea};
+    $.ajax({
+      url: "../../logica/logica.php?accion=InsertArea",
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: parametros,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgArea").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Guardado con Exito !!</strong></div>");
+        location.reload(); 
+      } else if (result == 3) {
+        $("#msgArea").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgArea").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No fue posible insertar el dato, por favor comuniquese con soporte tecnico.</div>");
+      }
+    });
+  }
+}
+
+function formeditArea(datoPrograma){
+  deditI=datoPrograma.split('||');
+  $('#IdAreaFM').val(deditI[0]);
+  $('#desAreaFM').val(deditI[1]);
+  $('#estadoAreaFM').val(deditI[2]);
+}
+
+function EditarArea(){
+  var idArea=$('#idAreaFM').val();
+  var desArea=$('#desAreaFM').val();
+  var estadoArea=$('#estadoAreaFM').val();
+  if (desArea===""|| estadoArea=="") {
+    $("#msgEditArea").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  } else {
+    var params = {idArea,desArea,estadoArea};
+    var url = "../../logica/logica.php?accion=EditarArea";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgEditArea").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
+        location.reload(); 
+      } else if (result == 3) {
+        $("#msgEditArea").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgEditArea").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
+      }
+    });
+}
+$("#msgEditArea").delay(3000).fadeOut(300);
+return;
+}
+
+//Modulo entrega de anteojos
+function insertEntrega(datoPrograma){
+  deditI=datoPrograma.split('||');
+  $('#MunicipioIn').val(deditI[3]);
+}
+
+function guardarEntregaAnteojos(){
+  var IdResponsableEntr=$('#IdResponsableEntr').val();
+  var idVdaBenef=$('#idVdaBenef').val();
+  var mcpioEntrega=$('#Municipio').val();
+  var fechaEntrega=$('#fechaEntrega').val();
+  var beneficiario=$('#beneficiario').val();
+  var telBeneficiario=$('#telBeneficiario').val();
+  var correoBeneficiario=$('#correoBeneficiario').val();
+  var personaRecibe=$('#personaRecibe').val();
+  var tipoAnteojos=$('#tipoAnteojos').val();
+  
+  if (IdResponsableEntr==0 || idVdaBenef==0 || mcpioEntrega==0 || fechaEntrega==0 || beneficiario==0 || telBeneficiario==0 ||  correoBeneficiario==0 || personaRecibe==0 || tipoAnteojos==0) {
+    $("#msgEntregaAnteojos").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  } else {
+    var params = {IdResponsableEntr,idVdaBenef,mcpioEntrega,fechaEntrega,beneficiario,telBeneficiario,correoBeneficiario,personaRecibe,tipoAnteojos};
+    var url = "../../logica/logica.php?accion=InsertEntregaAnteojos";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgEntregaAnteojos").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
+        location.reload();
+      } else if (result == 3) {
+        $("#msgEntregaAnteojos").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgEntregaAnteojos").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
+      }
+    });
+  }
+  $("#msgEntregaAnteojos").delay(3000).fadeOut(300);
+  return;
+}
+
+function formatEditarEntrega(datoPrograma){
+  deditI=datoPrograma.split('||');
+  $('#IdEntregaFM').val(deditI[0]);
+  $('#IdResponsableFM').val(deditI[1]);
+  $('#idVdaBenefFM').val(deditI[2]);
+  $('#MunicipioFM').val(deditI[3]);
+  $('#fechaEntregaFM').val(deditI[4]);
+  $('#beneficiarioFM').val(deditI[5]);
+  $('#telBeneficiarioFM').val(deditI[6]);
+  $('#correoBeneficiarioFM').val(deditI[7]);
+  $('#personaRecibeFM').val(deditI[8]);
+  $('#tipoAnteojosFM').val(deditI[9]);
+}
+
+function EditarEntrega(){
+  var idEntrega=$('#IdEntregaFM').val();
+  var IdResponsableEntr=$('#IdResponsableFM').val();
+  var idVdaBenef=$('#idVdaBenefFM').val();
+  var mcpioEntrega=$('#MunicipioFM').val();
+  var fechaEntrega=$('#fechaEntregaFM').val();
+  var beneficiario=$('#beneficiarioFM').val();
+  var telBeneficiario=$('#telBeneficiarioFM').val();
+  var correoBeneficiario=$('#correoBeneficiarioFM').val();
+  var personaRecibe=$('#personaRecibeFM').val();
+  var tipoAnteojos=$('#tipoAnteojosFM').val();
+  if (IdResponsableEntr===""|| idVdaBenef==""||mcpioEntrega==""||fechaEntrega==""||beneficiario==""||telBeneficiario==""||correoBeneficiario==""||personaRecibe==""||tipoAnteojos=="") {
+    $("#msgEditEntrega").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> Los campos no pueden estar vacios</div>");
+  } else {
+    var params = {idEntrega,IdResponsableEntr,idVdaBenef,mcpioEntrega,fechaEntrega,beneficiario,telBeneficiario,correoBeneficiario,personaRecibe,tipoAnteojos};
+    var url = "../../logica/logica.php?accion=EditarEntrega";
+    $.ajax({
+      url: url,
+      type: 'POST',
+      cache: false,
+      dataType: 'json',
+      data: params,
+    }).done(function(result) {
+      if(result == 1){
+        $("#msgEditEntrega").html("<div class='alert alert-dismissible alert-success'>EUREKA: <strong>Editado con Exito !!</strong></div>");
+        location.reload(); 
+      } else if (result == 3) {
+        $("#msgEditEntrega").html("<div class='alert alert-dismissible alert-warning'><strong>Los datos quedeseas cambiar ya existen.  Intenta nuevamente</strong></div>");
+      } else {
+        $("#msgEditEntrega").html("<div class='alert alert-dismissible alert-danger'><strong>ERROR:</strong> No se realizo ningun cambio en el programa, no hay nada que editar</div>");
+      }
+    });
+}
+$("#msgEditEntrega").delay(3000).fadeOut(300);
+return;
+}

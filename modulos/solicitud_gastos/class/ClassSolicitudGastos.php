@@ -66,9 +66,9 @@ Class Proceso_SolicitudGastos{
         return $this->resultado;
     }
 
-    function ListarDetallexidSolicitud($IdSolilcitudGasto){
+    function ListarDetallexidSolicitud($IdSolilcitudGasto,$EstadoDetalle){
         $sql="SELECT detallesolicitudgasto.*
-        from detallesolicitudgasto where idConsecutivoSolicitudGasto=".$IdSolilcitudGasto;
+        from detallesolicitudgasto where idConsecutivoSolicitudGasto=".$IdSolilcitudGasto." and EstadoRelacionDetalleSolicitud=".$EstadoDetalle;
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
@@ -118,16 +118,63 @@ Class Proceso_SolicitudGastos{
     }
 
     function InsertarTPMaDetalle($idConsecutivoSolicitudGasto, $idConceptoGastoDetalleSolicitud, $NumdiasTrayectoDetalleSolicitud,$ValorUnitarioDetalleSolicitud){
-        $sql="INSERT INTO detallesolicitudgasto (idConsecutivoSolicitudGasto, idConceptoGastoDetalleSolicitud, NumdiasTrayectoDetalleSolicitud,ValorUnitarioDetalleSolicitud)
-        VALUES (".$idConsecutivoSolicitudGasto.",".$idConceptoGastoDetalleSolicitud.",".$NumdiasTrayectoDetalleSolicitud.",".$ValorUnitarioDetalleSolicitud.")";
+        $sql="INSERT INTO detallesolicitudgasto (idConsecutivoSolicitudGasto, idConceptoGastoDetalleSolicitud, NumdiasTrayectoDetalleSolicitud,ValorUnitarioDetalleSolicitud,EstadoRelacionDetalleSolicitud)
+        VALUES (".$idConsecutivoSolicitudGasto.",".$idConceptoGastoDetalleSolicitud.",".$NumdiasTrayectoDetalleSolicitud.",".$ValorUnitarioDetalleSolicitud.",0)";
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
 
-    function CambiarEstadoSG($IdSolicitudGasto){
-        $sql="UPDATE solicitudgastos SET EstadoSolicitudGastos=1 where idConsecutivoSolicitudGastos=".$IdSolicitudGasto;
+    function CambiarEstadoSG($IdSolicitudGasto,$nuevoEstadoSG){
+        $sql="UPDATE solicitudgastos SET EstadoSolicitudGastos=".$nuevoEstadoSG." where idConsecutivoSolicitudGastos=".$IdSolicitudGasto;
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
+    }
+
+    function RelacionSGSaldo(){
+        $sql="SELECT solicitudgastos.*
+        from solicitudgastos
+        inner join relaciongastos on relaciongastos.idSolicitudGasto=solicitudgastos.idConsecutivoSolicitudGastos
+        where (relaciongastos.TotalRelacionGastos >0) and (relaciongastos.TotalRelacionGastos < solicitudgastos.ValorTotalSolicitudGastos)";
+         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+         return $this->resultado;
+    }
+
+    function ObtenerCABdeIdSG($IdSG){
+        $sql="SELECT solicitudgastos.*,
+        municipio.NombreMunicipio,
+        entidadvinculada.NombreEntidadVinculada,
+        proyecto.DescProyecto,
+        proceso.DescProceso,
+        actividad.DescripcionActividad,
+        legalizacionsolictudgasto.ValorLegalizacion
+        FROM solicitudgastos
+        INNER JOIN municipio on municipio.idMunicipio=solicitudgastos.idMunicipioSolicitudGastos
+        INNER JOIN entidadvinculada on entidadvinculada.idEntidadVinculada=solicitudgastos.idEntidadVinculadaSolicitudGastos
+        INNER JOIN proyecto on proyecto.idProyecto=solicitudgastos.idProyectoSolicitudGastos
+        INNER JOIN proceso on proceso.idProceso=solicitudgastos.idProcesoSolicitudGastos
+        INNER JOIN actividad on actividad.idActividad=solicitudgastos.idActividadSolicitudGastos
+        INNER JOIN legalizacionsolictudgasto on legalizacionsolictudgasto.idSolicitudGasto=solicitudgastos.idConsecutivoSolicitudGastos
+        WHERE solicitudgastos.idConsecutivoSolicitudGastos=".$IdSG;
+         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+         return $this->resultado;
+    }
+
+    function ObtenerCABdeIdSGLeg($IdSG){
+        $sql="SELECT solicitudgastos.*,
+        municipio.NombreMunicipio,
+        entidadvinculada.NombreEntidadVinculada,
+        proyecto.DescProyecto,
+        proceso.DescProceso,
+        actividad.DescripcionActividad
+        FROM solicitudgastos
+        INNER JOIN municipio on municipio.idMunicipio=solicitudgastos.idMunicipioSolicitudGastos
+        INNER JOIN entidadvinculada on entidadvinculada.idEntidadVinculada=solicitudgastos.idEntidadVinculadaSolicitudGastos
+        INNER JOIN proyecto on proyecto.idProyecto=solicitudgastos.idProyectoSolicitudGastos
+        INNER JOIN proceso on proceso.idProceso=solicitudgastos.idProcesoSolicitudGastos
+        INNER JOIN actividad on actividad.idActividad=solicitudgastos.idActividadSolicitudGastos
+        WHERE solicitudgastos.idConsecutivoSolicitudGastos=".$IdSG;
+         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+         return $this->resultado;
     }
 }
 ?>

@@ -12,8 +12,7 @@
         $InstEmpleados=new Proceso_Empleados($InstanciaDB);
         $InstLegalizSolicGastos=new Proceso_LegalizacionSolicitudGastos($InstanciaDB);
        
-        $listaSolicGastos=$InstSolicGastos->ListarSolicitudGastosxEstado(0);
-        // $ValorSolcitud=$InstSolicGastos->BuscarSolicitudGastosxid();
+        $ListaSGxLegalizar=$InstSolicGastos->ListarSolicitudGastosxEstado(0);
         $listaEmpleados=$InstEmpleados->ListarEmpleados();
         $ListaLegSolicGastos=$InstLegalizSolicGastos->ListarLegalizSolicitudGastos();
 ?>
@@ -28,32 +27,116 @@
 		include_once('../headWeb.php');
 		include_once("../../menu/m_principal.php");
 	?>
-             <div id="wrapper">
+              <div id="wrapper">
                 <div id="page-wrapper">
-                    <div id="page-inner">						                
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="panel panel-primary">     
-                                        <div class="panel-heading">
-                                            <h4>Legalización Solicitudes de Gastos</h4>
-                                        </div>                         
-                                        <div class="panel-body">
-                                            <button type="button" class="btn btn-success btn-circle" data-toggle="modal" data-target="#NuevaLegalizSolicitudGasto">
-                                                <i class="fa fa-plus fa-2x"></i>
-                                            </button>
-                                        </div>
-                                
-                                 </div>
-                            </div>
-                        </div>                                
+                    <div id="page-inner">
+                        <div class="panel-body" align="right">
+                            <button type="button" class="btn btn-success btn-circle" data-toggle="modal" data-target="#NuevaLegalizSolicitudGasto">
+                                <i class="fa fa-plus fa-2x"></i>
+                            </button>
+                        </div>
+                            <div class="panel panel-primary"> 
+                                <div class="panel-heading" style="height:55px;">
+                                    <b>Relacion de Legalizaciones de Gastos</b><div style="float:right;"><button type="button" class="btn btn-primary"><span class="badge"><?php echo $ListaLegSolicGastos->num_rows; ?></span></button></div>
+                                    
+                                </div>
+                                                  
+                                <div class="panel-body">
+                                    <div class="table-responsive">                                            	                               
+                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                            <thead>
+                                                <th># Legalizacion</th>
+                                                <th>Solicitud Gasto</th>
+                                                <th>Fecha Legalizacion</th>
+                                                <th>Usuario Legalizacion</th>
+                                                <th>Valor Legalizacion</th>
+                                                <th><span class='glyphicon glyphicon-cog' title='Config'></span></th>
+                                            </thead>
+                                            <tbody>
+                                                <?php    
+                                                    while($row=$ListaLegSolicGastos->fetch_array()){
+                                                        $datos=$row[0]."||".$row[1]."||".$row[2]."||".$row[3]."||".$row[4];
+                                                        
+                                                        $ListaResponsables=$InstSolicitudGasto->ListaResponsablesxIDsolicitud($row[1]);
+                                                        $datosResponsables='';
+                                                        while ($rowR=$ListaResponsables->fetch_array()) {
+                                                            $datosResponsables=$datosResponsables."||".$rowR[2];
+                                                        }
+                                                ?>
+                                                <tr class="odd gradeX">
+                                                    <td><?php echo $row[0]; ?></td>
+                                                    <td><?php echo $row[1]; ?></td>
+                                                    <td><?php echo $row[2]; ?></td>
+                                                    <td><?php echo $row[3]; ?></td>
+                                                    <td><?php echo '$'.number_format($row[4]); ?></td>
+                                                    <td></td>
+                                                    <td>
+                                                    
+                                                        <button title="Editar" onclick="formeditLegalizSolicGasto('<?php echo $datos;?>')" 
+                                                             class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditLegaliz"><span class="glyphicon glyphicon-pencil"></span></button>
+                                                     
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
+                                            </tbody>
+                                        </table>
+                                                
+                                </div>
+                            </div>                             
                     </div>               
                 </div>
             </div>
-    
+
+    <!-- Modal para Editar legalizacion-->
+    <div class="modal fade" id="modaleditLegaliz" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Editar Legalizacion</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" action="" method="post">
+                        <fieldset>
+                            <div id="msgLegalizEdit"></div>
+                            <div class="form-group">
+                                <label>Id Legalizacion</label>
+                                <input id="idLegalizFM" name="idLegalizFM" type="text" placeholder="formeditIdLegaliz" class="form-control" autocomplete="off" disabled>
+                            </div>                           
+                            <div class="form-group">
+                                <label>Id Solicitud Gasto</label>
+                                <input id="idSolicGastoFM" name="idSolicGastoFM" type="text" placeholder="formeditIdSolicGasto" class="form-control" autocomplete="off" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha de Legalizacion</label>
+                                <input id="FechaLegalizFM" name="FechaLegalizFM" type="text" placeholder="formeditFechalegal" class="form-control" autocomplete="off" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Usuario Legalizacion</label>
+                                <input id="UsuarioLegFM" name="UsuarioLegFM" type="text" placeholder="formeditUsuarioLeg" class="form-control" autocomplete="off" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Valor Legalizar</label>
+                                <input id="ValorLEgalizFM" name="ValorLEgalizFM" type="text" placeholder="formeditValorLEgaliz" class="form-control" autocomplete="off" required>
+                            </div>
+                          
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-primary" onclick="EditarLegaliz();">Grabar</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Modal para Editar Legalizacion -->
 
                <!-- Inicio Modal Nueva Legalizacion de solicitud de gastos --> 
 
-                    <?php require_once('../legalizacionSolicGasto/modalnuevalegalizacion.php'); ?>
+                    <?php include_once('modalnuevalegalizacion.php'); ?>
 
     <!-- Final Modal Nuevo Solicitud de gastos --> 
 
@@ -74,27 +157,65 @@
                     placeholder:"Responsables"
                 });
 
-                $('.js-example-basic-single').select2({
-                    dropdownParent: $("#NuevaLegalizSolicitudGasto")
+
+                $('.NumeroDias').on("keypress keyup blur",function (event) {    
+                    $(this).val($(this).val().replace(/[^\d].+/, ""));
+                    if ((event.which < 48 || event.which > 57)) {
+                        if (event.which == 8) {
+                            
+                        }else{
+                            event.preventDefault();
+                        }
+                    }
                 });
 
-                $('#IdSolicitudGastoSG').change(function(){    
-                    var IdSG = $( "#IdSolicitudGastoSG option:selected" ).val();
-                    var params = {IdSG};
-                    var url = "../../logica/logica.php?accion=getSolcitudGastoxLegalizar";
-                    $.ajax({
-                    url: url,
-                    type: 'POST',
-                    cache: false,
-                    dataType: 'json',
-                    data: params,
-                    }).done(function(result) {
-                    $('#VrLegSolicGastoSG').val(result[12]);          
-                    });
-                   
-                })
+                $("#ValorGasto").on({
+                    "focus": function(event) {
+                        $(event.target).select();
+                    },
+                    "keyup": function(event) {
+                        $(event.target).val(function(index, value) {
+                        return value.replace(/\D/g, "")
+                            .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                        });
+                    }
+                });
 
+                $(".ValorGasto").on("keypress keyup",function (event) {    
+                        $(this).val($(this).val().replace(/[^0-9\.]/g,','));
+                        if (($(this).val().indexOf(',') != -1) && (event.which < 48 || event.which > 57)) {
+                            if (event.which == 8 || event.which == 44) {
+                            }else{
+                                event.preventDefault();
+                            }
+                        }
+                });
         });
+      
+        $('#IdSolicitudGastoSG2').change(function () {
+            var IdSG =$('#IdSolicitudGastoSG2').val(); 
+            console.log(IdSG);
+            mostrarCABSGLegaliz(IdSG);
+            mostrarDetalleSG();
+            });
+
+ function mostrarDetalleSG() {
+        var IdSG=$('#IdSolicitudGastoSG2').val();
+        var parametros={IdSG};
+        
+        $.ajax({
+            url:'../../logica/logica.php?accion=ListarDetalleSG',
+            type: "POST",
+            data: parametros,
+            beforeSend: function(objeto){
+				 $('#ListaDetalleSG').html('Cargando...');
+		  },
+			success: function(data){
+                $("#ListaDetalleSG").html(data).fadeIn('slow');
+		}
+        });   
+    }
+
     
     function mostrar_items(){
 		var parametros={"action":"ajax"};
@@ -125,18 +246,6 @@ function InsertarDetalleTMP(){
             mostrar_items();
         }
     })
-}
-
-function eliminar_item(id_detalle_TMP){
-  var parametros = {id_detalle_TMP};
-  $.ajax({
-    url:'../../logica/logica.php?accion=eliminar_item',
-    type: 'POST',
-    data: parametros,
-    success:function(data){
-        mostrar_items();
-    }
-  });
 }
     mostrar_items();
     </script>

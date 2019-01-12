@@ -40,21 +40,18 @@
            <?php include_once "../../menu/m_principal.php"; ?>
         <div id="page-wrapper" >
             <div id="page-inner">               
-                        <div class="row">
+                 <div class="row">
+			  <div class="col-md-3 col-sm-6 col-xs-6">           
+		     </div>
                     <div class="col-md-3 col-sm-6 col-xs-6">           
-                    </div>
-                            <div class="col-md-3 col-sm-6 col-xs-6">           
-                    </div>
-                            <div class="col-md-3 col-sm-6 col-xs-6">           
-                    </div>
+		     </div>
                     <div class="col-md-3 col-sm-6 col-xs-6">           
-                    </div> 
+		     </div>
+			 <div class="col-md-3 col-sm-6 col-xs-6">           
+		     </div> 
 			</div>
                  <!-- /. ROW  -->                                
-                <hr />   
-                        <center>
-                        <img src="logo.png" width="300" height="700"/>
-                        </center>
+                <hr />                
                 </div>
                  <!-- /. ROW  -->                                
          

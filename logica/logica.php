@@ -1,10 +1,10 @@
 <?php 
     session_start();
     require_once("../modulos/conn_BD.php");
-    
-  
-    // require_once("../modulos/tipo_gastos/class/ClassTipodeGasto.php");
-    // require_once("../modulos/plan_cuentas/class/ClassPlanCuentas.php");
+    require_once("../modulos/usuarios/class/ClassUsuario.php");
+    require_once("../modulos/programas/class/ClassProgramas.php");
+    require_once("../modulos/tipo_gastos/class/ClassTipodeGasto.php");
+    require_once("../modulos/plan_cuentas/class/ClassPlanCuentas.php");
     require_once("../modulos/conceptos_gastos/class/classConceptoGastos.php");
     require_once("../modulos/empleados/class/classEmpleados.php");
     require_once("../modulos/solicitud_gastos/class/ClassSolicitudGastos.php");
@@ -38,10 +38,10 @@
     if ($_POST) {
         $accion=$_GET['accion'];
         $InstanciaDB=new Conexion();
-        // $InstUsuario=new Proceso_Usuario($InstanciaDB);
-      
-       
-        // $InstPlanCuentas=new Proceso_PlanCuentas($InstanciaDB);
+        $InstUsuario=new Proceso_Usuario($InstanciaDB);
+        $InstPrograma=new Proceso_Programa($InstanciaDB);
+        $InstTipoGasto=new Proceso_TipoGastos($InstanciaDB);
+        $InstPlanCuentas=new Proceso_PlanCuentas($InstanciaDB);
         $InstConceptoGasto=new Proceso_ConceptoGastos($InstanciaDB);
         $InstEmpleados=new Proceso_Empleados($InstanciaDB);
         $InstSolicitudGasto= new Proceso_SolicitudGastos($InstanciaDB);
@@ -72,8 +72,6 @@
 
         switch ($accion) {
             case 'login':
-            require_once("../modulos/usuarios/class/ClassUsuario.php");
-            $InstUsuario=new Proceso_Usuario($InstanciaDB);
                     $EmailForm=limpiar($_POST['email']);
                     $ClaveForm=limpiar($_POST['pass']);
                     $LoginUser=$InstUsuario->BuscarLogin($EmailForm);
@@ -96,8 +94,6 @@
                     }
             break;
             case 'InsertPrograma':
-            require_once("../modulos/programas/class/ClassProgramas.php");
-            $InstPrograma=new Proceso_Programa($InstanciaDB);
                 $descPrograma=primera_mayuscula(limpiar($_POST['descPrograma']));
                 $estado=limpiar($_POST['estado']);
                 $codigoPrograma=texto_mayusculas(limpiar($_POST['codigoPrograma']));
@@ -115,8 +111,6 @@
                 }
             break;
             case 'EditPrograma':
-            require_once("../modulos/programas/class/ClassProgramas.php");
-            $InstPrograma=new Proceso_Programa($InstanciaDB);
                 $IdPrograma=limpiar($_POST['IdPrograma']);
                 $CodigoProgramaEditarFM=texto_mayusculas(limpiar($_POST['CodigoProgramaEdit']));
                 $DescProgramaEditarFM=primera_mayuscula(limpiar($_POST['DescProgramaEdit']));
@@ -155,8 +149,6 @@
                 }
             break;
             case 'InsertUsuario':
-            require_once("../modulos/usuarios/class/ClassUsuario.php");
-            $InstUsuario=new Proceso_Usuario($InstanciaDB);
                 $NombreUsuario=primera_mayuscula(limpiar($_POST['NombreUsuario']));
                 $EmailUsuario=limpiar($_POST['EmailUsuario']);
                 $EstadoUsuario=limpiar($_POST['EstadoUsuario']);
@@ -175,8 +167,6 @@
                 }
                 break;
             case 'EditUsuario':
-            require_once("../modulos/usuarios/class/ClassUsuario.php");
-            $InstUsuario=new Proceso_Usuario($InstanciaDB);
                 $IdUsuarioFM=limpiar($_POST['IdUsuarioFM']);
                 $EmailUsuarioFM=limpiar($_POST['EmailUsuarioFM']);
                 $NombreUsuarioEditFM=primera_mayuscula(limpiar($_POST['NombreUsuarioFM']));
@@ -191,8 +181,6 @@
             break;
 
             case 'InsertTipoGasto':
-            require_once("../modulos/tipo_gastos/class/ClassTipodeGasto.php");
-            $InstTipoGasto=new Proceso_TipoGastos($InstanciaDB);
                 $CodTipoGasto=texto_mayusculas(limpiar($_POST['CodTipoGasto']));
                 $DescTipoGasto=primera_mayuscula(limpiar($_POST['DescTipoGasto']));
                 $EstadoTipoGasto=limpiar($_POST['EstadoTipoGasto']);
@@ -210,8 +198,6 @@
                 }
             break;
             case 'EditTipoGasto':
-            require_once("../modulos/tipo_gastos/class/ClassTipodeGasto.php");
-            $InstTipoGasto=new Proceso_TipoGastos($InstanciaDB);
                 $IdTipoGastoFM=limpiar($_POST['IdTipoGastoFM']);
                 $CodigoTipoGastoFM=texto_mayusculas(limpiar($_POST['CodigoTipoGastoFM']));
                 $descTipoGastoFM=primera_mayuscula(limpiar($_POST['descTipoGastoFM']));
@@ -222,7 +208,7 @@
                 $diferenciaDescripcion=strcmp($descTipoGastoFM,$rowDB[2]);
                 $diferenciaEstado=strcmp($EstadoTipoGastoFM,$rowDB[3]);
                 $cambio=true;
-                if ($diferenciaCodigo==0 || $diferenciaDescripcion==0  || $diferenciaEstado==0 ) {
+                if ($diferenciaCodigo==0 && $diferenciaDescripcion==0  && $diferenciaEstado==0 ) {
                     echo 0;
                     $cambio=false;
                 } else {
@@ -250,8 +236,6 @@
                 }
             break;
             case 'InsertPlanCuentas':
-            require_once("../modulos/plan_cuentas/class/ClassPlanCuentas.php");
-            $InstPlanCuentas=new Proceso_PlanCuentas($InstanciaDB);
                 $CodPlanCuentas=texto_mayusculas(limpiar($_POST['CodPlanCuentas']));
                 $DescPlanCuentas=primera_mayuscula(limpiar($_POST['DescPlanCuentas']));
                 $EstadoPlanCuentas=limpiar($_POST['EstadoPlanCuentas']);
@@ -269,8 +253,6 @@
                 }
             break;
             case 'EditPlanCuentas':
-            require_once("../modulos/plan_cuentas/class/ClassPlanCuentas.php");
-            $InstPlanCuentas=new Proceso_PlanCuentas($InstanciaDB);
                 $IdPlanCuentasFM=limpiar($_POST['IdPlanCuentasFM']);
                 $CodigoPlanCuentasFM=texto_mayusculas(limpiar($_POST['CodigoPlanCuentasFM']));
                 $descPlanCuentasFM=primera_mayuscula(limpiar($_POST['descPlanCuentasFM']));
@@ -281,7 +263,7 @@
                 $diferenciaDescripcion=strcmp($descPlanCuentasFM,$rowDB[2]);
                 $diferenciaEstado=strcmp($EstadoPlanCuentasFM,$rowDB[3]);
                 $cambio=true;
-                if ($diferenciaCodigo==0 || $diferenciaDescripcion==0  || $diferenciaEstado==0 ) {
+                if ($diferenciaCodigo==0 && $diferenciaDescripcion==0  && $diferenciaEstado==0 ) {
                     echo 0;
                     $cambio=false;
                 } else {
@@ -420,7 +402,7 @@
                                 <tr>
                                     <th class="text-center">Item</th>
                                     <th>Concepto Gasto</th>
-                                    <th class="text-center">Dias</th>
+                                    <th class="text-center">Unidad Medida</th>
                                     <th class="text-right">Valor</th>
                                     <th class="text-right">Sub Total</th>
                                     <th class="text-right">Eliminar</th>
@@ -873,9 +855,6 @@
                 }
             break;
 
-
-
-
             //Contacto
             case 'InsertContacto':
             $Nombre=primera_mayuscula(limpiar($_POST['Nombre']));
@@ -900,6 +879,7 @@
                     }
                 }
             break;
+
             case'EditarContacto':
                 $idContactoFM=limpiar($_POST['idContactoFM']);
                 $NombreFM=primera_mayuscula(limpiar($_POST['NombreFM']));
@@ -972,8 +952,8 @@
                 }
 
             break;
-            case 'InsertInstitucion':
 
+            case 'InsertInstitucion':
             $CodDaneInstitucion=texto_mayusculas(limpiar($_POST['CodDaneInstitucion']));
             $NombreInstitucion=primera_mayuscula(limpiar($_POST['NombreInstitucion']));
             $idTipoInstitucion=limpiar($_POST['idTipoInstitucion']);
@@ -1370,10 +1350,8 @@
                     echo 0;
                 }
             break;
-// Modulo Javier Octubre 25
 
-
-
+                   // Modulo Javier Octubre 25
             case 'EditarColeccion':
                 $idColeccion=limpiar($_POST['idColeccion']);
                 $DescColeccion=primera_mayuscula(limpiar($_POST['DescColeccion']));
@@ -1435,9 +1413,9 @@
                     }else{
                         echo 0;
                     }
-            break;
-
-            case 'EditarVereda':
+                break;
+       
+                case 'EditarVereda':
             $IdVereda=limpiar($_POST['IdVereda']);
             $descVereda=primera_mayuscula(limpiar($_POST['descVereda']));
             $IdMcpio=limpiar($_POST['IdMcpio']);
@@ -1472,7 +1450,7 @@
             }
             break;
 
-           // modulo Municipios.
+           // modulo Municipios
            case 'InsertMunicipio':
            $codMunicipio=limpiar($_POST['codMunicipio']);
            $descMunicipio=primera_mayuscula(limpiar($_POST['descMunicipio']));
@@ -1486,7 +1464,7 @@
            }else{
                echo 0;
            }
-       break;
+            break;
 
        case 'EditarMunicipio':
            $IdMcpio=limpiar($_POST['IdMcpio']);
@@ -1527,10 +1505,8 @@
            }
        break;
 
-// Modulo Javier Octubre 25
-
+          // Modulo Javier Octubre 25
             case 'InsertarSolicitudGasto':
-
                 $fecha=$_POST['fecha'];
                 $CodProyectoSG=$_POST['CodProyectoSG'];
                 $CodProcesoSG=$_POST['CodProcesoSG'];
@@ -1594,7 +1570,7 @@
                 break;
 
                 case 'ListarDetalleSG':
-                    $IsSG=limpiar($_POST['IsSG']);
+                    $IdSG=limpiar($_POST['IdSG']);
                         echo '<div class="col-lg-12 col-md-12 col-sm-12">
                                 <div class="table-responsive">
                                     <!-- Row start -->
@@ -1618,7 +1594,7 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody class="items">';
-                                                                    $ListaDetalleSG=$InstSolicitudGasto->ListarDetallexidSolicitud($IsSG);
+                                                                    $ListaDetalleSG=$InstSolicitudGasto->ListarDetallexidSolicitud($IdSG,0);
                                                                     $items=1;
                                                                     $suma=0;
                                                                     if ($ListaDetalleSG->num_rows > 0) {
@@ -1652,31 +1628,464 @@
                                 <div>
                             </div>';
                 break;
+                
                 case 'getSolcitudGastoxLegalizar':
                     $IdSG=$_POST['IdSG'];
                     $listaSolicGastos=$InstSolicitudGasto->BuscarSolicitudGastosxid($IdSG);
                     echo json_encode($listaSolicGastos->fetch_array());
                 break;
 
-                // Modulo Legalizacion solicitud de gastos
+          // Modulo Legalizacion solicitud de gastos
 
                 case 'InsertarLegalizSolicitudGasto':
                     require_once("../modulos/legalizacionSolicGasto/class/ClasslegalizacionSolicGasto.php");
                     $InstLegalizSolictGasto= new Proceso_LegalizacionSolicitudGastos($InstanciaDB);
-
+ 
                     $IdSolicitudGastoSG=$_POST['IdSolicitudGastoSG'];
                     $FechaLegalizSG=$_POST['FechaLegalizSG'];
                     $responsableSG=$_POST['responsableSG'];
-                    $VrLegSolicGastoSG=$_POST['VrLegSolicGastoSG'];       
+                    $VrLegSolicGastoSG=limpiar($_POST['VrLegSolicGastoSG']);       
                     $InsertarLegalizSolicGastoCab=$InstLegalizSolictGasto->InsertarLegalizSolicitudGastos($IdSolicitudGastoSG,$FechaLegalizSG,$responsableSG,$VrLegSolicGastoSG);
                     
                     if($InsertarLegalizSolicGastoCab>0){
-                        $CambioEstdoSG=$InstSolicitudGasto->CambiarEstadoSG($IdSolicitudGastoSG);
+                        $CambioEstdoSG=$InstSolicitudGasto->CambiarEstadoSG($IdSolicitudGastoSG,1);
                         echo 1;             
                     }else{
                     echo 0;
                     }
                 break;
+
+                case 'EditarLegalizacion':
+                require_once("../modulos/legalizacionSolicGasto/class/ClasslegalizacionSolicGasto.php");
+                $InstLegalizacionSG=new Proceso_LegalizacionSolicitudGastos($InstanciaDB);
+                    $IdLegalizacion=limpiar($_POST['IdLegalizacion']);
+                    $IdSolicitud=limpiar($_POST['IdSolicitud']);
+                    $FechaLegaliz=limpiar($_POST['FechaLegaliz']);
+                    $usuarioLegaliz=primera_mayuscula(limpiar($_POST['usuarioLegaliz']));
+                    $valorLegaliz=limpiar($_POST['valorLegaliz']);
+
+                    $DatosProgramaDB=$InstLegalizacionSG->BuscarLegalizSolicitudGastosxid($IdLegalizacion);
+                    $rowDB=$DatosProgramaDB->fetch_array(MYSQLI_BOTH);
+                    $diferenciaLegaliz=strcmp($IdLegalizacion,$rowDB[0]);               
+                    $cambio=true;
+                    if ($diferenciaLegaliz ==0) {
+                        echo 0;
+                        $cambio=false;
+                    } else {
+                        if($cambio){
+                            $actualizarprograma=$InstLegalizacionSG->EditarLegalizacSolicitudGastos($IdLegalizacion,$IdSolicitud,$FechaLegaliz,$usuarioLegaliz,$valorLegaliz);
+                            echo 1;
+                        }else{
+                            echo 3;
+                        }
+                    }
+                break;
+
+                case 'BuscarLegalizacionSG':
+                    require_once("../modulos/legalizacionSolicGasto/class/ClasslegalizacionSolicGasto.php");
+                    $InstLegalizacionSG=new Proceso_LegalizacionSolicitudGastos($InstanciaDB);
+                    $IdSolicitudGastoSG=$_POST['idSG'];
+                    $ListaDocLegalizacion=$InstLegalizacionSG->BuscarLegalizSolicitudGastosxid($IdSolicitudGastoSG);
+                    echo json_encode($ListaDocLegalizacion->fetch_array());
+                break;
+
+                case 'ListarCABSG':
+                    $IdSG=$_POST['IdSG'];
+                    $ListaCABSG=$InstSolicitudGasto->ObtenerCABdeIdSGLeg($IdSG);
+                    echo json_encode($ListaCABSG->fetch_array());
+                break;
+
+                case 'ListarDetalleSGRelacion':
+                    $IdSG=limpiar($_POST['IdSG']);
+                        echo '<div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="table-responsive">
+                                    <!-- Row start -->
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading clearfix">
+                                                        <h3 class="panel-title">Detalle Solicitud de Gastos</h3>
+                                                    </div>            
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <table class="table table-striped  table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Item</th>
+                                                                        <th>Concepto Gasto</th>
+                                                                        <th class="text-center">Dias</th>
+                                                                        <th class="text-right">Valor</th>
+                                                                        <th class="text-right">Sub Total</th>
+                                                                        <th class="text-center">
+                                                                            <span class="glyphicon glyphicon-cog" title="Config"></span> 
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="items">';
+                                                                    $ListaDetalleSG=$InstSolicitudGasto->ListarDetallexidSolicitud($IdSG,0);
+                                                                    $items=1;
+                                                                    $suma=0;
+                                                                    if ($ListaDetalleSG->num_rows > 0) {
+                                                                        while($rowSG=$ListaDetalleSG->fetch_array()){
+                                                                            $NombreConcepto=$InstSolicitudGasto->getnombreconceptoGasto($rowSG[2]);
+                                                                            $SubTotal=(intval($rowSG[3])*intval($rowSG[4]));
+                                                                        echo '
+                                                                            <tr>
+                                                                                <td class="text-center">'.$items.'<div style="display:none;" id="IdDetalleSG">'.$rowSG[0].'</div></td>
+                                                                                <td>'.$NombreConcepto.'</td>
+                                                                                <td class="text-center"> '.$rowSG[3].'</td>
+                                                                                <td class="text-right"> $ '.number_format($rowSG[4]).'</td>
+                                                                                <td class="text-right"> $ '.number_format($SubTotal).'</td>
+                                                                                
+                                                                                <th class="text-center">
+                                                                                    <button type="button" class="btn btn-primary btn-xs" id="UpLoadRelacion" onclick="ResumenenModalRelacion(\''.$NombreConcepto.'\','.$rowSG[3].','.$rowSG[4].');" data-toggle="modal" data-target="#ModalUpLoadRelacion">
+                                                                                        <span class="glyphicon glyphicon-open" style="color:black;"></span> 
+                                                                                    </button>
+                                                                                </th>
+                                                                            </tr>';
+                                                                            $items++;
+                                                                            $suma+=(intval($rowSG[3])*intval($rowSG[4]));
+                                                                        }
+                                                                    }
+                                                                    echo '
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <!-- Row end -->   
+                                    <div class="form-group col-lg-12 text-right">
+                                        <div style="width:70%; float:left;"><h4><label>TOTAL</label></h4></div>
+                                        <div style="width:30%; float:right;"><h4><b>$</b><label id="TotalSolicitudGastoSG">'.number_format($suma).'</label></h4></div>
+                                    </div>                        
+                                <div>
+                            </div>';
+                break;
+
+                case 'CargarResponsablesSelect2':
+                    $i=0;
+                    $IdSG=limpiar($_POST['IdSG']);
+                    $empleados = array();
+                    $Listaempleados=$InstSolicitudGasto->ListaResponsablesxIDsolicitud($IdSG);
+                    while($rowEMSG=$Listaempleados->fetch_array()){
+                        $empleados[$i]=intval($rowEMSG[2]);
+                        $i++;
+                    }
+                    echo json_encode($empleados);
+                break;
+
+                case 'uploadimagen':
+
+                    if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES["fileToUpload"]["type"])){
+                        $IdRelacionGasos=$_POST['IdRelacionGastos'];
+                        $IdDetalleSG=$_POST[''];
+                        $target_dir = "../imgrelaciongastos/".$IdRelacionGastos;
+                        $carpeta=$target_dir;
+                        if (!file_exists($carpeta)) {
+                            mkdir($carpeta, 0777, true);
+                        }
+                        
+                        $target_file = $carpeta . basename($_FILES["fileToUpload"]["name"]);
+                        $uploadOk = 1;
+                        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+                        if(isset($_POST["submit"])) {
+                            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                            if($check !== false) {
+                                $errors[]= "El archivo es una imagen - " . $check["mime"] . ".";
+                                $uploadOk = 1;
+                            } else {
+                                $errors[]= "El archivo no es una imagen.";
+                                $uploadOk = 0;
+                            }
+                        }
+                        if (file_exists($target_file)) {
+                            $errors[]="Lo sentimos, archivo ya existe.";
+                            $uploadOk = 0;
+                        }
+                        
+                        if ($_FILES["fileToUpload"]["size"] > 5242880) {
+                            $errors[]= "Lo sentimos, el archivo es demasiado grande.  Tamaño máximo admitido: 5 MB";
+                            $uploadOk = 0;
+                        }
+                        
+                        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" && $imageFileType != "pdf") {
+                            $errors[]= "Lo sentimos, sólo archivos JPG, JPEG, PNG, GIF y PDF  son permitidos.";
+                            $uploadOk = 0;
+                        }
+                        
+                        if ($uploadOk == 0) {
+                            $errors[]= "Lo sentimos, tu archivo no fue subido.";
+                        
+                        } else {
+                            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                            $messages[]= "El Archivo ha sido subido correctamente.";
+
+                            } else {
+                                $errors[]= "Lo sentimos, hubo un error subiendo el archivo.";
+                            }
+                        }
+                        
+                        if (isset($errors)){
+                            ?>
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Error!</strong> 
+                                <?php
+                                foreach ($errors as $error){
+                                    echo"<p>$error</p>";
+                                }
+                                ?>
+                            </div>
+                            <?php
+                        }
+                        
+                        if (isset($messages)){
+                            ?>
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Aviso!</strong> 
+                                <?php
+                                foreach ($messages as $message){
+                                    echo"<p>$message</p>";
+                                }
+                                ?>
+                            </div>
+                            <?php
+                        }
+                    }
+                break;
+
+                case 'GuardarRelacionSG':
+                    require_once("../modulos/relaciongastos/class/ClassRelacionGastos.php");
+                    $InstRelacionSG=new Proceso_RelacionGastos($InstanciaDB);
+                    $IdSG=$_POST['IdSG'];
+                    $ObservacionesRelacionGasto=limpiar($_POST['ObservacionesRelacionGasto']);
+                    $UsuarioRelacionGastos=$_POST['UsuarioRelacionGastos'];
+                    $FechaRelacionGastos=$_POST['FechaRelacionGastos'];
+                    $IDGuardadoRelacionSG=$InstRelacionSG->InsertarCabRelacionGasto($IdSG,$FechaRelacionGastos,$ObservacionesRelacionGasto,$UsuarioRelacionGastos);
+                    //$CambioestadoSG=$InstSolicitudGasto->CambiarEstadoSG($IdSG,2);
+                    echo json_encode($IDGuardadoRelacionSG);
+                break;
+
+                case 'GuardarDetalleRelacion':
+                    require_once("../modulos/relaciongastos/class/ClassRelacionGastos.php");
+                    $InstRelacionSG=new Proceso_RelacionGastos($InstanciaDB);
+                    $IdRG=intval($_POST['IdRG']);
+                    $IdDetalleSG=intval($_POST['IdDetalleSG']);
+                    $NitBeneficiario=limpiar($_POST['NitBeneficiario']);
+                    $NombreBeneficiario=limpiar($_POST['NombreBeneficiario']);
+                    $NumeroFactura=limpiar($_POST['NumeroFactura']);
+                    $ValorFactura=intval(limpiar($_POST['ValorFactura']));
+                    $PagoTCD=$_POST['PagoTCD'];
+                    $Observaciones=limpiar($_POST['Observaciones']);
+
+                    $fileToUpload=$_POST['fileToUpload'];
+                    $GuardarDetalleRelacion=$InstRelacionSG->InsLineaDetalleReacionSG($IdRG,$IdDetalleSG,$NitBeneficiario,$NombreBeneficiario,$NumeroFactura,$ValorFactura,$PagoTCD,$Observaciones,$fileToUpload);
+
+                break;
+
+           // modulo Alumnos
+           case 'InsertAlumno':
+           require_once("../Modulos/alumnos/class/classAlumnos.php");
+           $InstAlumnos=new Proceso_Alumnos($InstanciaDB);
+
+           $codAlumno=limpiar($_POST['codAlumno']);
+           $descAlumno=primera_mayuscula(limpiar($_POST['descAlumno']));
+           $estado=limpiar($_POST['estado']);
+           $edad=limpiar($_POST['edad']);
+           $IdInstituc=limpiar($_POST['IdInstituc']);
+           $alumnoExiste=$InstAlumnos->BuscarAlumnosxCod($codAlumno);
+
+            if($alumnoExiste->num_rows==0){
+                    $Alumnoinsertado=$InstAlumnos->InsertAlumno($codAlumno,$descAlumno,$estado,$edad,$IdInstituc);
+                    if($Alumnoinsertado>0){
+                        echo 1;
+                    }else{
+                        echo 0;
+                    }
+                }else{
+                  echo 0;
+                }
+            break;
+
+       case 'EditarAlumno':
+       require_once("../Modulos/alumnos/class/classAlumnos.php");
+       $InstAlumnos=new Proceso_Alumnos($InstanciaDB);
+           $IdAlumno=limpiar($_POST['IdAlumno']);
+           $codAlumno=limpiar($_POST['codAlumno']);
+           $nombAlumno=primera_mayuscula(limpiar($_POST['nombAlumno']));
+           $estAlumno=primera_mayuscula(limpiar($_POST['estAlumno']));
+           $edadAlumno=limpiar($_POST['edadAlumno']);
+           $idInstitucion=limpiar($_POST['idInstitucion']);
+
+           $DatosProgramaDB=$InstAlumnos->BuscarAlumnos($IdAlumno);
+           $rowDB=$DatosProgramaDB->fetch_array(MYSQLI_BOTH);
+           $diferenciaIdAlumno=strcmp($IdAlumno,$rowDB[2]);              
+           $cambio=true;
+           if ($diferenciaIdAlumno==0){
+            echo 0;
+            $cambio=false;
+            } else {
+                if($cambio){
+                    $actualizarprograma=$InstAlumnos->EditarAlumno($IdAlumno,$codAlumno,$nombAlumno,$estAlumno,$edadAlumno,$idInstitucion);
+                    echo 1;
+                }else{
+                    echo 3;
+                }
+            }
+        break;
+
+
+        // modulos Empleados
+
+            case 'InsertEmpleado':
+            require_once("../modulos/empleados/class/classEmpleados.php");
+            $InstEmpleados=new Proceso_Empleados($InstanciaDB);
+            $DocEmpleado=limpiar($_POST['DocEmpleado']);
+            $nomEmpleado=primera_mayuscula(limpiar($_POST['nomEmpleado']));
+            $telEmpleado=limpiar($_POST['telEmpleado']);
+            $cargoEmpl=limpiar($_POST['cargoEmpl']);
+            $idArea=limpiar($_POST['idArea']);
+            $estadoEmple=limpiar($_POST['estadoEmple']);
+            $idUsuarioEmpl=limpiar($_POST['idUsuarioEmpl']);
+            $emplExiste=$InstEmpleados->BuscarEmpleado($DocEmpleado);
+
+            if($emplExiste==true){
+                    $Empleadoinsertado=$InstEmpleados->InsertEmpleado($DocEmpleado,$nomEmpleado,$telEmpleado,$cargoEmpl,$idArea,$estadoEmple,$idUsuarioEmpl);
+                    if($Empleadoinsertado>0){
+                        echo 1;
+                    }else{
+                        echo 0;
+                    }
+                }else{
+                    echo 0;
+                }
+            break;
+
+            case 'EditarEmpleado':
+            require_once("../modulos/empleados/class/classEmpleados.php");
+            $InstEmpleados=new Proceso_Empleados($InstanciaDB);
+
+            $idEmpleado=limpiar($_POST['idEmpleado']);
+            $DocEmpleado=limpiar($_POST['DocEmpleado']);
+            $nomEmpleado=primera_mayuscula(limpiar($_POST['nomEmpleado']));
+            $DocEmpleado=limpiar($_POST['DocEmpleado']);
+            $cargoEmpl=limpiar($_POST['cargoEmpl']);
+            $idArea=limpiar($_POST['idArea']);
+            $estadoEmple=limpiar($_POST['estadoEmple']);
+            $idUsuarioEmpl=limpiar($_POST['idUsuarioEmpl']);
+
+            $DatosProgramaDB=$InstEmpleados->BuscarEmpleado($DocEmpleado);
+            $rowDB=$DatosProgramaDB->fetch_array(MYSQLI_BOTH);
+            $diferenciaEmpleado=strcmp($DocEmpleado,$rowDB[1]);              
+            $cambio=true;
+            if ($diferenciaEmpleado==0){
+            echo 0;
+            $cambio=false;
+            } else {
+                if($cambio){
+                    $actualizarprograma=$InstEmpleados->EditarEmpleado($idEmpleado,$DocEmpleado,$nomEmpleado,$DocEmpleado,$cargoEmpl,$idArea,$estadoEmple,$idUsuarioEmpl);
+                    echo 1;
+                }else{
+                    echo 3;
+                }
+            }
+            break;
+
+
+             //Modulo de area
+             case 'InsertArea':
+             require_once("../modulos/area/class/ClassArea.php");
+             $InstArea=new Proceso_Area($InstanciaDB);
+
+             $descArea=primera_mayuscula(limpiar($_POST['descArea']));
+             $estadoarea=primera_mayuscula(limpiar($_POST['estadoarea']));
+             $AreaInsertado=$InstArea->InserArea($descArea,$estadoarea);
+             if($AreaInsertado>0){
+             echo 1;
+             }else{
+                 echo 0;
+                 }
+             break;
+ 
+             case 'EditarArea':
+             require_once("../modulos/area/class/ClassArea.php");
+             $InstArea=new Proceso_Area($InstanciaDB);
+
+             $IdMcpio=limpiar($_POST['IdMcpio']);
+             $descArea=primera_mayuscula(limpiar($_POST['descArea']));
+             $estadoarea=primera_mayuscula(limpiar($_POST['estadoarea']));
+           
+             $rowDB=$DatosProgramaDB->fetch_array(MYSQLI_BOTH);
+             $diferenciadescArea=strcmp($descArea,$rowDB[1]);               
+             $cambio=true;
+             if ($diferenciadescArea ==0) {
+             echo 0;
+             $cambio=false;
+             } else {
+             if($cambio){
+             $actualizarprograma=$InstArea->EditarArea($IdMcpio,$descArea,$estadoarea);
+             echo 1;
+             }else{
+             echo 3;
+             }
+             }
+              break;
+         
+         //Modulo Entrega Anteojos
+         case 'InsertEntregaAnteojos':
+         require_once("../modulos/entregaAnteojos/class/classEntregaAnteojos.php");
+         $InstEntregaAnt=new Proceso_EntregaAnteojos($InstanciaDB);
+
+         $IdResponsableEntr=primera_mayuscula(limpiar($_POST['IdResponsableEntr']));
+         $idVdaBenef=primera_mayuscula(limpiar($_POST['idVdaBenef']));
+         $mcpioEntrega=primera_mayuscula(limpiar($_POST['mcpioEntrega']));
+         $fechaEntrega=primera_mayuscula(limpiar($_POST['fechaEntrega']));
+         $beneficiario=primera_mayuscula(limpiar($_POST['beneficiario']));
+         $telBeneficiario=primera_mayuscula(limpiar($_POST['telBeneficiario']));
+         $correoBeneficiario=primera_mayuscula(limpiar($_POST['correoBeneficiario']));
+         $personaRecibe=primera_mayuscula(limpiar($_POST['personaRecibe']));
+         $tipoAnteojos=primera_mayuscula(limpiar($_POST['tipoAnteojos']));
+         
+         $EntregaInsertado=$InstEntregaAnt->InsertarEntregaAnteojos($IdResponsableEntr,$idVdaBenef,$mcpioEntrega,$fechaEntrega,$beneficiario,$telBeneficiario,
+         $correoBeneficiario,$personaRecibe,$tipoAnteojos);
+         if($EntregaInsertado>0){
+         echo 1;
+         }else{
+             echo 0;
+             }
+         break;
+
+         case 'EditarEntrega':
+         require_once("../modulos/entregaAnteojos/class/classEntregaAnteojos.php");
+         $InstEntregaAnt=new Proceso_EntregaAnteojos($InstanciaDB);
+         $idEntrega=limpiar($_POST["idEntrega"]);
+         $IdResponsableEntr=primera_mayuscula(limpiar($_POST['IdResponsableEntr']));
+         $mcpioEntrega=primera_mayuscula(limpiar($_POST['mcpioEntrega']));
+         $fechaEntrega=primera_mayuscula(limpiar($_POST['fechaEntrega']));
+         $beneficiario=primera_mayuscula(limpiar($_POST['beneficiario']));
+         $telBeneficiario=primera_mayuscula(limpiar($_POST['telBeneficiario']));
+         $correoBeneficiario=primera_mayuscula(limpiar($_POST['correoBeneficiario']));
+         $personaRecibe=primera_mayuscula(limpiar($_POST['personaRecibe']));
+         $tipoAnteojos=primera_mayuscula(limpiar($_POST['tipoAnteojos']));
+       
+         $rowDB=$DatosProgramaDB->fetch_array(MYSQLI_BOTH);
+         $diferenciadescEntr=strcmp($idEntrega,$rowDB[1]);               
+         $cambio=true;
+         if ($diferenciadescEntr==0) {
+         echo 0;
+         $cambio=false;
+         } else {
+         if($cambio){
+         $actualizarprograma=$InstEntregaAnt->EditarArea($idEntrega,$IdResponsableEntr,$mcpioEntrega.$fechaEntrega,$beneficiario,$telBeneficiario,$correoBeneficiario,$personaRecibe,$tipoAnteojos);
+         echo 1;
+         }else{
+         echo 3;
+         }
+         }
+          break;
 
             default:
                 break;

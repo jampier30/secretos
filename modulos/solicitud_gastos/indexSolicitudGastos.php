@@ -32,6 +32,7 @@
         $NextSolicitud=$InstSolicitudGasto->ObtenerultimaSolicitudGasto();
         $ListaSGxLegalizar=$InstSolicitudGasto->ListarSolicitudGastosxEstado(0);
         $ListaSGxRelacionar=$InstSolicitudGasto->ListarSolicitudGastosxEstado(1);
+        $ListaRelacionSGconsaldo=$InstSolicitudGasto->RelacionSGSaldo();
         
 ?>
 <!DOCTYPE html>
@@ -94,7 +95,7 @@
                                     <td>
                                     <button title="Ver" onclick="VerSolicitudGasto('<?php echo $datos;?>','<?php echo $datosResponsables;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#VerSolicitudGasto"><span class="glyphicon glyphicon-info-sign" style="color:blue;"></span></button>
                                         <button title="Editar" onclick="formeditSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-pencil"></span></button>
-                                        <button title="Legalizar Gasto" onclick="LegalizarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-arrow-right" style="color:green;"></span> <span style="color:green;"> $</span></button>
+                                        <button title="Legalizar Gasto" onclick="LegalizarSolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#NuevaLegalizSolicitudGasto"><span class="glyphicon glyphicon-arrow-right" style="color:green;"></span> <span style="color:green;"> $</span></button>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -106,7 +107,6 @@
             <br>
             <hr>
             <br>
-
 
             <div class="panel panel-primary">
                 <div class="panel-heading" style="height:55px;">
@@ -152,14 +152,72 @@
                     </div>
                 </div>
             </div>
+            <br><br><br>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="height:55px;">
+                    Relacion de Gastos <b>con Saldo Pendiente</b>
+                    <div style="float:right;"><button type="button" class="btn btn-primary"><span class="badge"><?php echo $ListaRelacionSGconsaldo->num_rows;?></span></button></div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">                                            	                               
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <th>#</th>
+                                <th>Fecha Solicitud</th>
+                                <th>Municipio</th>
+                                <th>Valor Solicitud</th>
+                                <th>Valor Relacionado</th>
+                                <th>Valro Legalizado</th>
+                                <th>Saldo L-R</th>
+                                <th><span class='glyphicon glyphicon-cog' title='Config'></span></th>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    
+                                    while($row=$ListaRelacionSGconsaldo->fetch_array()){
+                                    $datos=$row[0]."||".$row[1]."||".$row[2]."||".$row[3]."||".$row[4]."||".$row[5]."||".$row[6]."||".$row[7]."||".$row[8]."||".$row[9]."||".$row[10]."||".$row[11]."||".$row[12];
+
+                                        $ListaResponsables=$InstSolicitudGasto->ListaResponsablesxIDsolicitud($row[0]);
+                                        $datosResponsables='';
+                                        while ($rowR=$ListaResponsables->fetch_array()) {
+                                            $datosResponsables=$datosResponsables."||".$rowR[2];
+                                        }
+                                ?>
+                                <tr class="odd gradeX">
+                                    <td><?php echo $row[0]; ?></td>
+                                    <td><?php echo $row[1]; ?></td>
+                                    <td><?php echo $row[13]; ?></td>
+                                    <td><?php echo '$'.number_format($row[13]); ?></td>
+                                    <td><?php echo '$'.number_format($row[14]); ?></td>
+                                    <td><?php 
+                                        $saldo=($row[14]-$row[13]);
+                                        if ($saldo < 0) {
+                                            $color='red';
+                                        } else {
+                                            $color='black';
+                                        }
+                                        echo '<p style="color:'.$color.'">$'.number_format($saldo).'</p>';
+                                         
+                                    ?></td>
+                                    <td>
+                                    <button title="Ver" onclick="VerSolicitudGasto('<?php echo $datos;?>','<?php echo $datosResponsables;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#VerSolicitudGasto"><span class="glyphicon glyphicon-info-sign" style="color:blue;"></span></button>
+                                        <button title="Editar" onclick="SolicitudGasto('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-pencil"></span></button>
+                                        <button title="Completar Relacion" onclick="Editar('<?php echo $datos;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modaleditMcpio"><span class="glyphicon glyphicon-arrow-right" style="color:rgb(255, 128, 0);"></span> <span class="glyphicon glyphicon-new-window" style="color:rgb(255, 128, 0);"></span></button>
+                                    </td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>                          
+            
         </div>
     </div>
 </div>
     
-    <!-- Inicio Modal de legalizacion de Gastos -->
-    <?php require_once('../legalizacionSolicGasto/modalnuevalegalizacion.php');?>
-
-    <!-- Fin Modal de leglizacion de Gastos -->
+    
 
     <!-- Inicio Modal Nueva Solicitud de gastos --> 
 
@@ -185,7 +243,6 @@
                                         ?>
                                     </select>
                                 </div>
-
                                 <div class="form-group">
                                     <select class="form-control" name="CodEntidadSG" id="CodEntidadSG" style="width:250px">
                                         <option value="00"> -- Seleccione una Entidad -- </option>
@@ -197,7 +254,6 @@
                                         ?>
                                     </select>
                                 </div> 
-
                                 <div class="form-group">
                                     <select class="form-control" name="CodProyectoSG" id="CodProyectoSG" style="width:250px">
                                         <option value="00"> -- Seleccione un Proyecto -- </option>
@@ -209,7 +265,6 @@
                                         ?>
                                     </select>
                                 </div>
-
                                 <div class="form-group">
                                     <select class="form-control" name="CodProcesoSG" id="CodProcesoSG" style="width:250px">
                                         <option value="00"> -- Seleccione un Proceso -- </option>
@@ -234,17 +289,15 @@
                                 </div>
                             </div>
                             <div class="row col-sm-2"></div>
-
                             <div class="row col-sm-5">
-                                <div class="form-group">
-                                    <div class="input-append date form_datetime" data-date="<?php echo $fechadatetimepicker;?>">
-                                        <input id="FechaHoraSalidaSG" size="16" type="text"  class="form-control" autocomplete="off" readonly style="width:230px" placeholder="Fecha y Hora de salida"> 
-                                        <span class="add-on"><i class='fas fa-calendar-alt'></i></span>
-                                        <span class="add-on"><i class="icon-th"></i></span>
-                                    
+                                    <div class="form-group">
+                                        <div class="input-append date form_datetime" data-date="<?php echo $fechadatetimepicker;?>">
+                                            <input id="FechaHoraSalidaSG" size="16" type="text"  class="form-control" autocomplete="off" readonly style="width:230px" placeholder="Fecha y Hora de salida"> 
+                                            <span class="add-on"><i class='fas fa-calendar-alt'></i></span>
+                                            <span class="add-on"><i class="icon-th"></i></span>
+                                        
+                                        </div>
                                     </div>
-                                </div>
-
                                 <div class="form-group">
                                     <div class="input-append date form_datetime" data-date="<?php echo $fechadatetimepicker;?>">
                                         <input id="FechaHoraRegresoSG" size="16" type="text"  class="form-control" autocomplete="off" readonly style="width:230px" placeholder="Fecha y Hora de regreso">
@@ -260,9 +313,7 @@
                                         });
                                     </script>   
                                 </div>
-
-                                <div class="form-group">
-                                    
+                                <div class="form-group">                         
                                     <select class="js-example-basic-multiple" name="responsableSG" id="responsableSG" multiple="multiple" style="width:230px">
                                         <?php
                                             mysqli_data_seek($listaEmpleados, 0);
@@ -279,7 +330,6 @@
                                     <input name="TipoColeccionSG" id="TipoColeccionSG"  type="text"  class="form-control" autocomplete="off" placeholder="Tipo Coleccion">
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div id="msgDetalleSolicitudGastoLista"></div>          
@@ -293,7 +343,6 @@
                     </div>
                 </div>
         </div>
-
     <!-- Final Modal Nuevo Solicitud de gastos --> 
 
 
@@ -368,7 +417,8 @@
                         
                         <div class="panel-body center-block">
                                     <!-- Row start -->
-                                    <div class="table-responsive">
+                                    <div >
+                                        <div class="table-responsive">
                                             <div class="col-md-12 col-sm-12 col-xs-12">
                                                 <div class="panel panel-default">
                                                     <div class="panel-heading clearfix">
@@ -443,6 +493,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     <!-- Row end -->
                             
 
@@ -452,13 +503,20 @@
                                     <div id="ListaDetalleSG"></div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                   <div id="VerLegalizacionSG"></div>                                          
+                                </div>
+                            </div>
+                            
                             
                         </div> 
                         <div class="modal-footer">
-                            <div style="width:30%; float:right;" class="btn-group">
+                            <div style="width:70%; float:left;" id="msgBotonAccionSG" class="btn-group" role="group"></div>
+                            <div style="width:30%; float:right;" class="btn-group" role="group">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                             </div>
-                            <div style="width:70%; float:left;" id="msgBotonAccionSG"></div>
+                            
                             
                         </div>										 
                     </div>
@@ -466,6 +524,15 @@
             </div>
 
 <!-- fin modal visualizacion Solicitud Gasto -->
+
+
+
+    <!-- Inicio Modal de legalizacion de Gastos -->
+        <?php 
+            require_once('../legalizacionSolicGasto/modalnuevalegalizacion.php');
+        ?>
+
+    <!-- Fin Modal de leglizacion de Gastos -->
 
     <script src="../../assets/js/jquery-1.10.2.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
@@ -485,23 +552,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
     
     <script>
-       $(document).ready(function() {
-                
+       $(document).ready(function() {               
                 $('.js-example-basic-multiple').select2({
                     placeholder:"Responsables",
                     allowClear: true,
                 });
 
                 $('.js-example-basic-single').select2({
-                    dropdownParent: $("#NuevaSolicitudGasto")
+                    dropdownParent: $("#NuevaSolicitudGasto"),
                 });
-
 
                 $('.NumeroDias').on("keypress keyup blur",function (event) {    
                     $(this).val($(this).val().replace(/[^\d].+/, ""));
                     if ((event.which < 48 || event.which > 57)) {
-                        if (event.which == 8) {
-                            
+                        if (event.which == 8) {                          
                         }else{
                             event.preventDefault();
                         }
@@ -524,16 +588,24 @@
                         $(this).val($(this).val().replace(/[^0-9\.]/g,','));
                         if (($(this).val().indexOf(',') != -1) && (event.which < 48 || event.which > 57)) {
                             if (event.which == 8 || event.which == 44) {
-
                             }else{
                                 event.preventDefault();
                             }
                         }
                 });
         });
+  
+    function ShowVerLegalizacionSolicitudGasto() {
+        $("#VerLegalizacionSG").show();
+    }
+
+    function HideVerLegalizacionSolicitudGasto(){
+        $("#VerLegalizacionSG").hide();
+    }
+
     function mostrarDetalleSG() {
-        var IsSG=$('#VerIdSolicitudGastoSG').text();
-        var parametros={IsSG};
+        var IdSG=$('#VerIdSolicitudGastoSG').text();
+        var parametros={IdSG};
         $.ajax({
             url:'../../logica/logica.php?accion=ListarDetalleSG',
             type: "POST",
@@ -544,8 +616,7 @@
 			success: function(data){
                 $("#ListaDetalleSG").html(data).fadeIn('slow');
 		}
-		});
-        
+		});       
     }
     
     function mostrar_items(){

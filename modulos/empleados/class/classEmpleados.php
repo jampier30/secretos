@@ -12,6 +12,12 @@
             return $this->resultado;
         }
         
+        function listarArea(){
+             $sql="SELECT * FROM area";
+             $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+             return $this->resultado;
+        }
+
         function ListarEmpleados(){
             $sql="SELECT
             empleado.idEmpleado,
@@ -35,13 +41,38 @@
             return $this->resultado;
         }
 
-        function BuscarEmpleado(){
+        function InsertEmpleado($DocumentoEmpleado,$NombreEmpleado,$TelefonoEmpleado,$CargoEmpleado,$idAreaEmpleado,
+        $EstadoEmpleado,$idusuarioEmpleado){
+            $sql="INSERT INTO empleado (DocumentoEmpleado,NombreEmpleado,TelefonoEmpleado,CargoEmpleado,
+            idAreaEmpleado,EstadoEmpleado,idusuarioEmpleado) 
+            VALUES (".$DocumentoEmpleado.",'".$NombreEmpleado."','".$TelefonoEmpleado."','".$CargoEmpleado."',".$idAreaEmpleado.",
+            ".$EstadoEmpleado.",".$idusuarioEmpleado.")"; 
+            $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+            return $this->resultado;
+        }
 
+
+        function BuscarEmpleado($DocumentoEmpleado){
+            $sql="SELECT * FROM empleado where DocumentoEmpleado ='".$DocumentoEmpleado."'";
+            $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+            return $this->resultado;
 
         }
 
-        function EditarEmpleado(){
-
+        function EditarEmpleado($idEmpleado,$DocumentoEmpleado,$NombreEmpleado,$TelefonoEmpleado,$CargoEmpleado,$idAreaEmpleado,
+        $EstadoEmpleado,$idusuarioEmpleado){
+            $sql="UPDATE alumno SET 
+            DocumentoEmpleado=".$DocumentoEmpleado.",
+            NombreEmpleado='".$NombreEmpleado."',
+            TelefonoEmpleado='".$TelefonoEmpleado."',
+            CargoEmpleado=".$CargoEmpleado.",
+            idAreaEmpleado=".$idAreaEmpleado.",
+            EstadoEmpleado=".$EstadoEmpleado.",
+            idusuarioEmpleado=".$idusuarioEmpleado." 
+            WHERE idEmpleado=".$idEmpleado;
+            echo $sql;
+            $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+            return $this->resultado;
 
         }
     

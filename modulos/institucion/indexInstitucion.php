@@ -82,7 +82,7 @@
                                         </tr>
 											<?php }?>       	
 										
-										<!--  Modal Nuevo Institucion-->
+<!--  Modal Nuevo Institucion-->
 										 	<div class="modal fade" id="ModalNuevoInstitucion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 												<form name="form2" method="post" enctype="multipart/form-data" action="">											
 													<div class="modal-dialog">
@@ -135,9 +135,9 @@
 													</div>
 												</form>
 											</div>
-										<!-- End Modal Nuevo Institucion-->
+<!-- End Modal Nuevo Institucion-->
 
-										 <!--  Modal Editar Institucion-->
+ <!--  Modal Editar Institucion-->
 										 	<div class="modal fade" id="ModalEditarInstitucionFM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 												<div class="modal-dialog">
 														<div class="modal-content">
@@ -195,7 +195,7 @@
 														</div>
 													</div>
 												</div>
-										 <!-- End Modal Editar Institucion-->
+ <!-- End Modal Editar Institucion-->
                                     </tbody>									
                                 </table>							
                             </div>                            

@@ -12,8 +12,8 @@ Class Proceso_LegalizacionSolicitudGastos{
         return $this->resultado;
     }
 
-    function BuscarLegalizSolicitudGastosxid($idLegalizacionSolictudGasto){
-        $sql="SELECT * FROM legalizacionsolictudgasto where idLegalizacionSolictudGasto ='".$idLegalizacionSolictudGasto."'";
+    function BuscarLegalizSolicitudGastosxid($idSolictudGasto){
+        $sql="SELECT * FROM legalizacionsolictudgasto where idSolicitudGasto=".$idSolictudGasto;
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
@@ -21,15 +21,14 @@ Class Proceso_LegalizacionSolicitudGastos{
     function InsertarLegalizSolicitudGastos($idSolicitudGasto, $FechaLegalizacion,$UsuarioLegalizacion,$ValorLegalizacion){
         $sql="INSERT INTO legalizacionsolictudgasto (idSolicitudGasto,FechaLegalizacion,UsuarioLegalizacion,ValorLegalizacion)
          VALUES(".$idSolicitudGasto.",'".$FechaLegalizacion."','".$UsuarioLegalizacion."',".$ValorLegalizacion.")";
-        echo $sql;
-       $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
+        $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }
 
     function EditarLegalizacSolicitudGastos($idLegalizacionSolictudGasto,$idSolicitudGasto,
     $FechaLegalizacion,$UsuarioLegalizacion,$ValorLegalizacion){
-        $sql="UPDATE solicitudgastos SET idSolicitudGasto='".$idSolicitudGasto."', FechaLegalizacion='".$FechaLegalizacion."',
-        UsuarioLegalizacion=".$UsuarioLegalizacion.", ValorLegalizacion='".$ValorLegalizacion."'
+        $sql="UPDATE legalizacionsolictudgasto SET idSolicitudGasto=".$idSolicitudGasto.", FechaLegalizacion='".$FechaLegalizacion."',
+        UsuarioLegalizacion='".$UsuarioLegalizacion."', ValorLegalizacion=".$ValorLegalizacion."
        WHERE idLegalizacionSolictudGasto=".$idLegalizacionSolictudGasto;
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
