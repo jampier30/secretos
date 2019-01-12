@@ -7,7 +7,14 @@ Class Proceso_EntregaAnteojos{
      }
 
     function ListarEntregaAnteojos(){
-        $sql="SELECT * FROM entrega_anteojos";
+        $sql="SELECT entrega_anteojos.*,
+        empleado.NombreEmpleado,
+        municipio.NombreMunicipio,
+        alumno.NombreAlumno
+         FROM entrega_anteojos
+         INNER JOIN empleado ON entrega_anteojos.IdresponsableEntrega=empleado.idEmpleado
+         INNER JOIN municipio ON entrega_anteojos.municipioEntrega=municipio.idMunicipio
+         INNER JOIN alumno ON entrega_anteojos.beneficiario=alumno.idAlumno";
         $this->resultado=$this->ConnxClass->link->query($sql) or trigger_error($this->con->error);
         return $this->resultado;
     }

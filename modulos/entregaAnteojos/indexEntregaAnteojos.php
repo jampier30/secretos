@@ -56,12 +56,12 @@
                                         <tr>
                                             <th>Id</th>
 											<th>Responsable Entrega</th>
-                                            <th>Vereda Beneficiario</th>
+                                        
 											<th>Municipio Entrega</th>
-											<th>Fecha Entrega</th>
+									
 											<th>Beneficiario</th>
-                                            <th>Telefono Beneficiario</th>
-											<th>Correo beneficiario</th>
+                                         
+										
 											<th>Persona que recibe</th>
                                             <th>Tipo Anteojos</th>
 											<th><span class='glyphicon glyphicon-cog' title='Config'></span>
@@ -70,19 +70,15 @@
                                     <tbody>
 										<?php
 											while ($row=$ListaEntrega->fetch_array()) {
-												$datosEntrega=$row[0]."||".$row[1]."||".$row[2]."||".$row[3]."||".$row[4]."||".$row[5]."||".$row[6]."||".$row[7]."||".$row[8]."||".$row[9]."||".$row[10];
+												$datosEntrega=$row[0]."||".$row[1]."||".$row[2]."||".$row[3]."||".$row[4]."||".$row[5]."||".$row[6]."||".$row[7]."||".$row[8]."||".$row[9];
 										  ?>
                                         <tr class="odd gradeX">
 											<td><?php echo $row[0]; ?></td>
-											<td><?php echo $row[1]; ?></td>
-											<td><?php echo $row[2]; ?></td>
-											<td><?php echo $row[3];	?></td>
-											<td><?php echo $row[4]; ?></td>
-											<td><?php echo $row[5]; ?></td>
-											<td><?php echo $row[6]; ?></td>
-											<td><?php echo $row[7]; ?></td>
-											<td><?php echo $row[8];	?></td>
-											<td><?php echo $row[9]; ?></td>                             
+											<td><?php echo $row[10]; ?></td>
+											<td><?php echo $row[11]; ?></td>
+											<td><?php echo $row[12];	?></td>
+											<td><?php echo $row[8]; ?></td>
+											<td><?php echo $row[9]; ?></td>                           
 											<td class="center">
 												<div class="btn-group">
 													<button type="button" onclick="formeditEntrega('<?php echo $datosEmpleado;?>')" class="btn btn-default btn-sm" data-toggle="modal" data-target="#ModalEditEntregaAnteojos"><span class="glyphicon glyphicon-pencil"></span></button>
